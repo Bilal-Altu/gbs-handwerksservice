@@ -15,6 +15,9 @@ ist über den Link erreichbar, wird aber nicht gefunden.
 
 Vorbild ist <https://studiograpa.com>. Übernommen ist die Sprache, nicht das Aussehen:
 
+* **Alles auf einem Zwölferraster.** Navigation, Text, Bilder, Zeichnungen und
+  Formular teilen sich dieselben senkrechten Linien — Textspalte 3 bis 8,
+  Marginalie 1 bis 2, Beiwerk 10 bis 12.
 * **Ein durchgehendes warmes Farbfeld** statt Weiß — hier ein Sandton (`#e3d8c8`), bei
   Grapa ein Aprikot. Die ganze Seite ist eine Fläche, ohne Kästen und ohne Abschnitte,
   die sich farblich abwechseln.
@@ -30,8 +33,10 @@ Vorbild ist <https://studiograpa.com>. Übernommen ist die Sprache, nicht das Au
   darauf, kein Kasten und kein Balken. Oben die Wege, unten links das Versprechen,
   unten rechts der Weg zum Aufmaß.
 
-Ein Verlauf liegt nur über Kopf und Fuß des ersten Schirms, damit die weiße Schrift
-sicher steht; die Mitte mit dem Lichtrahmen bleibt unberührt.
+Über dem Titelbild liegt **kein Verlauf**. Das Foto ist stattdessen enger auf die
+Decke beschnitten und aufgehellt (Mittelwert 174 von 255), sodass die dunkle Schrift
+mit mindestens 5,5:1 darauf steht. Navigationslinks tragen erst beim Zeigen einen
+Unterstrich.
 
 **Schriften:** Newsreader (Lauftext, mager und kursiv) und Instrument Sans (alles
 Kleine). Beide selbst ausgeliefert, keine Verbindung zu Google, zusammen 88 KB.
