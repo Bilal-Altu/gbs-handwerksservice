@@ -1,6 +1,7 @@
 /* =============================================================================
    GBS Handwerksservice
-   1. Kopfleiste und Handy-Leiste   2. Einblenden beim Scrollen
+   1. Leiste erscheint nach dem ersten Schirm
+   2. Einblenden beim Scrollen
    3. Anfrageformular (baut eine E-Mail, kein Server)
    ========================================================================== */
 (function () {
@@ -8,22 +9,24 @@
 
   var sparsam = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* --------------------------------------------- 1. Leisten ------------ */
-  var kopf   = document.querySelector(".kopfleiste");
-  var leiste = document.querySelector(".aktionsleiste");
+  /* ------------------------------------------------------- 1. Leiste --- */
+  var leiste = document.querySelector(".leiste");
+  var schirm = document.querySelector(".schirm");
 
   function beimScrollen() {
+    if (!leiste) { return; }
+    /* Ohne ersten Schirm — also auf Impressum und Datenschutz — steht die
+       Leiste von Anfang an. */
+    if (!schirm) { leiste.setAttribute("data-fest", "ja"); return; }
     var y = window.scrollY || window.pageYOffset;
-    if (kopf) { kopf.setAttribute("data-fest", y > 40 ? "ja" : "nein"); }
-    if (leiste) {
-      leiste.setAttribute("data-sichtbar", y > window.innerHeight * 0.7 ? "ja" : "nein");
-    }
+    leiste.setAttribute("data-fest", y > schirm.offsetHeight - 80 ? "ja" : "nein");
   }
   window.addEventListener("scroll", beimScrollen, { passive: true });
+  window.addEventListener("resize", beimScrollen);
   beimScrollen();
 
-  /* --------------------------------------------- 2. Einblenden --------- */
-  var bloecke = document.querySelectorAll(".aufblenden");
+  /* --------------------------------------------------- 2. Einblenden --- */
+  var bloecke = document.querySelectorAll(".auf");
   document.documentElement.classList.add("js-an");
   document.documentElement.dataset.bereit = "ja";
 
@@ -37,11 +40,11 @@
           beobachter.unobserve(e.target);
         }
       });
-    }, { rootMargin: "0px 0px -10% 0px", threshold: 0.06 });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.05 });
     Array.prototype.forEach.call(bloecke, function (el) { beobachter.observe(el); });
   }
 
-  /* --------------------------------------------- 3. Formular ----------- */
+  /* ----------------------------------------------------- 3. Formular --- */
   var formular = document.getElementById("anfrage");
   if (!formular) { return; }
 
@@ -69,8 +72,7 @@
       "Name: "    + (d.get("name")    || "") + "\n" +
       "Telefon: " + (d.get("telefon") || "") + "\n" +
       "E-Mail: "  + (d.get("email")   || "") + "\n" +
-      "Raum: "    + (d.get("raum")    || "") + "\n" +
-      "Fläche: "  + (d.get("flaeche") || "") + "\n\n" +
+      "Raum: "    + (d.get("raum")    || "") + "\n\n" +
       (d.get("nachricht") || "");
 
     var betreff = "Anfrage Spanndecke" + (d.get("raum") ? " — " + d.get("raum") : "");
