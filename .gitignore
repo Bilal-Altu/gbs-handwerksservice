@@ -1,0 +1,19 @@
+# Editor- und Systemreste
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Originalbilder der alten Seite — nur die Vorlage, gehört nicht auf den Server
+quelle/
+
+# Die drei Musterentwürfe des zweiten Anlaufs — nur zur Entscheidung gebaut
+muster/
+
+# lokale Vorschau
+pruef.html
+.claude/
+
+# Bilder, die nur die Musterentwürfe in muster/ brauchen
+assets/img/hero-kueche-*
+assets/img/vollbild-*
+assets/img/tuer-*
