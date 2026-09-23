@@ -2,9 +2,10 @@
 /* ==========================================================================
    GBS Handwerksservice
    Sprache nach dem Vorbild von studiograpa.com: ein durchgehendes warmes
-   Farbfeld, winzige Navigation in festen Positionen, Lauftext in großer
-   Serifenschrift in einer schmalen, eingerückten Spalte, Bilder in
-   unregelmäßigen Breiten, viel Leere dazwischen.
+   Farbfeld, winzige Navigation, Lauftext in großer Serifenschrift.
+
+   Alles steht auf EINEM Zwölferraster — Navigation, Text, Bilder,
+   Zeichnungen und Formular teilen sich dieselben senkrechten Linien.
    ========================================================================== */
 
 /* ------------------------------------------------------------ Schriften -- */
@@ -43,22 +44,22 @@
 
 /* --------------------------------------------------------------- Farben -- */
 :root {
-  --feld:    #e3d8c8;   /* warmes Sandfeld, trägt die ganze Seite */
+  --feld:    #e3d8c8;
   --tusche:  #14120f;   /* 13,2:1 auf dem Feld */
   --grau:    #5a5346;   /* 5,4:1 */
   --grau-2:  #7a7161;   /* nur große Schrift und Marken, 3,3:1 */
   --linie:   #c6b9a4;
-  --weiss:   #ffffff;
-  --violett: #511972;   /* aus dem Logo, nur die Quadrate der Wortmarke */
+  --violett: #511972;
 
   --serif: "Newsreader", "Times New Roman", Times, serif;
   --sans:  "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
 
-  --rand:  28px;
+  --rand:   32px;
   --breite: 1400px;
-  --luft:  clamp(110px, 17vh, 230px);
+  --spalt:  clamp(16px, 1.8vw, 30px);   /* Spaltenabstand im Raster */
+  --luft:   clamp(110px, 16vh, 210px);  /* Abstand zwischen den Bahnen */
 }
-@media (max-width: 760px) { :root { --rand: 18px; } }
+@media (max-width: 760px) { :root { --rand: 20px; } }
 
 /* ---------------------------------------------------------- Grundlagen -- */
 *, *::before, *::after { box-sizing: border-box; }
@@ -76,13 +77,13 @@ body {
   background: var(--feld);
   color: var(--tusche);
   font-family: var(--serif);
-  font-size: clamp(20px, 1.8vw, 27px);
-  line-height: 1.34;
+  font-size: clamp(20px, 1.75vw, 26px);
+  line-height: 1.36;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
-p { margin: 0 0 .85em; }
+p { margin: 0 0 .8em; }
 p:last-child { margin-bottom: 0; }
 img { max-width: 100%; height: auto; display: block; }
 picture { display: block; }
@@ -99,106 +100,108 @@ em { font-style: italic; }
 }
 
 /* ------------------------------------------------------------ Kleinzeug -- */
-.klein {                      /* der Ton der ganzen Navigation und Marginalien */
+.klein {
   font-family: var(--sans);
-  font-size: 13px; font-weight: 500; line-height: 1.5;
-  letter-spacing: .1em; text-transform: uppercase;
+  font-size: 12.5px; font-weight: 500; line-height: 1.5;
+  letter-spacing: .11em; text-transform: uppercase;
 }
-.klein a { text-decoration: none; }
+.klein a, a.weg { text-decoration: none; }
+
+/* Links tragen keinen Unterstrich — erst beim Zeigen */
+a.weg {
+  border-bottom: 1px solid transparent; padding-bottom: 2px;
+  transition: border-color .2s ease;
+}
+a.weg:hover { border-bottom-color: currentColor; }
 
 .wortmarke {
   display: inline-flex; align-items: center; gap: 4px;
-  font-family: var(--sans); font-weight: 600; font-size: 13px;
+  font-family: var(--sans); font-weight: 600; font-size: 12.5px;
   letter-spacing: .14em; text-transform: uppercase; text-decoration: none;
+  white-space: nowrap;
 }
 .wortmarke i { width: 4px; height: 4px; background: currentColor; display: block; }
 
-a.strich {
-  text-decoration: none;
-  border-bottom: 1px solid currentColor; padding-bottom: 1px;
-  transition: opacity .2s ease;
-}
-a.strich:hover { opacity: .55; }
-
-/* ======================================================= Erster Schirm == */
-.schirm {
-  position: relative; height: 100svh; min-height: 520px; overflow: hidden;
-  background: #17150f; color: var(--weiss);
-}
-.schirm > picture, .schirm img {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; object-position: 50% 52%;
-}
-.schirm-inhalt {
-  position: relative; z-index: 2; height: 100%;
-  padding: var(--rand);
-  display: grid; grid-template-rows: auto 1fr auto;
-}
-
-/* die Zeile am Kopf — Wortmarke und Wege, alles winzig */
-.wege {
-  align-self: start;
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
-  align-items: baseline;
-}
-.wege > *:last-child { text-align: right; }
-.wege a:hover { opacity: .6; }
-
-.schirm-unten {
-  display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between;
-  gap: 18px 30px;
-}
-.versprechen {
-  font-family: var(--serif); font-size: clamp(24px, 2.6vw, 38px); line-height: 1.16;
-  max-width: 16ch; margin: 0;
-}
-.versprechen em { font-style: italic; }
-
-@media (max-width: 720px) {
-  /* am Handy bleiben nur Wortmarke und Nummer — der Rest kommt mit der
-     Leiste beim Scrollen */
-  .wege { grid-template-columns: auto auto; justify-content: space-between; gap: 16px; }
-  .wege > *:nth-child(2), .wege > *:nth-child(3) { display: none; }
-  .wege > *:last-child { text-align: right; }
-}
-
 /* ============================================================== Raster == */
-.bahn { padding-block: var(--luft); }
-.bahn:first-of-type { padding-top: clamp(90px, 13vh, 170px); }
-
-.satz {
+.gitter {
   width: min(var(--breite), 100% - 2 * var(--rand));
   margin-inline: auto;
   display: grid;
-  grid-template-columns: minmax(0, 2.2fr) minmax(0, 5.8fr) minmax(0, 4fr);
-  gap: 0 clamp(20px, 2.6vw, 48px);
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--spalt);
 }
 @media (max-width: 900px) {
-  .satz { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  .gitter { grid-template-columns: minmax(0, 1fr); row-gap: 22px; }
+  .gitter > * { grid-column: 1 !important; }
 }
+
+/* feste Plätze im Raster */
+.sp-marge   { grid-column: 1 / 3; }
+.sp-text    { grid-column: 3 / 9; }
+.sp-beiwerk { grid-column: 10 / 13; }
+.sp-weit    { grid-column: 3 / 13; }
+.sp-bild-gr { grid-column: 6 / 13; }
+.sp-bild-kl { grid-column: 3 / 6; }
+
+/* ======================================================= Erster Schirm == */
+.schirm {
+  position: relative; height: 100svh; min-height: 540px; overflow: hidden;
+  background: var(--feld); color: var(--tusche);
+}
+.schirm > picture, .schirm > picture img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: 50% 50%;
+}
+.schirm-inhalt {
+  position: relative; z-index: 2; height: 100%;
+  padding-block: var(--rand);
+  display: grid; grid-template-rows: auto 1fr auto;
+}
+
+.wege { align-items: baseline; }
+.wege > *:nth-child(1) { grid-column: 1 / 4; }
+.wege > *:nth-child(2) { grid-column: 4 / 7; }
+.wege > *:nth-child(3) { grid-column: 7 / 10; }
+.wege > *:nth-child(4) { grid-column: 10 / 13; text-align: right; }
+@media (max-width: 900px) {
+  .wege { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+  .wege > *:nth-child(2), .wege > *:nth-child(3) { display: none; }
+}
+
+.schirm-fuss { align-items: end; }
+.versprechen {
+  grid-column: 3 / 10;
+  font-size: clamp(26px, 2.8vw, 40px); line-height: 1.12; margin: 0;
+}
+.versprechen em { font-style: italic; }
+.schirm-zeile {
+  grid-column: 3 / 13; margin-top: 18px;
+  display: flex; flex-wrap: wrap; gap: 8px 36px;
+}
+@media (max-width: 900px) {
+  .versprechen, .schirm-zeile { grid-column: 1; }
+  .schirm-zeile { flex-direction: column; gap: 8px; }
+}
+
+/* ============================================================== Bahnen == */
+.bahn { padding-block: var(--luft); }
+.bahn:first-of-type { padding-top: clamp(90px, 13vh, 165px); }
+.bahn > .gitter + .gitter { margin-top: clamp(50px, 8vh, 110px); }
 
 .marginalie {
-  grid-column: 1;
-  font-family: var(--sans); font-size: 13px; font-weight: 500;
-  letter-spacing: .1em; text-transform: uppercase; color: var(--grau);
-  padding-top: .55em;
+  font-family: var(--sans); font-size: 12.5px; font-weight: 500;
+  letter-spacing: .11em; text-transform: uppercase; color: var(--grau);
+  padding-top: .6em;
 }
-.text { grid-column: 2; }
-.text--weit { grid-column: 2 / 4; }
-.beiwerk { grid-column: 3; }
-@media (max-width: 900px) {
-  .marginalie, .text, .text--weit, .beiwerk { grid-column: 1; }
-  .marginalie { padding-top: 0; }
-}
-
+@media (max-width: 900px) { .marginalie { padding-top: 0; } }
 .nebentext { color: var(--grau); }
 
-/* Kennwerte als schlichte Zeilen in der Marginalspalte */
+/* Kennwerte */
 .werte { margin: 0; padding: 0; list-style: none; font-family: var(--sans); }
 .werte li {
   display: flex; justify-content: space-between; gap: 14px;
   padding: 7px 0; border-bottom: 1px solid var(--linie);
-  font-size: 13px; line-height: 1.4; color: var(--grau);
+  font-size: 12.5px; line-height: 1.4; color: var(--grau);
 }
 .werte li:first-child { border-top: 1px solid var(--linie); }
 .werte b { font-weight: 600; color: var(--tusche); text-align: right; }
@@ -207,77 +210,71 @@ a.strich:hover { opacity: .55; }
 figure { margin: 0; }
 figcaption {
   margin-top: 12px;
-  font-family: var(--sans); font-size: 12.5px; font-weight: 500;
-  letter-spacing: .1em; text-transform: uppercase; color: var(--grau-2);
+  font-family: var(--sans); font-size: 12px; font-weight: 500;
+  letter-spacing: .11em; text-transform: uppercase; color: var(--grau-2);
 }
-
-/* unregelmäßig gesetzte Bilder, eins läuft rechts aus dem Satz heraus */
-.bildfolge {
-  width: min(var(--breite), 100% - 2 * var(--rand));
-  margin: clamp(56px, 8vh, 120px) auto 0;
-  display: grid; grid-template-columns: repeat(12, 1fr);
-  gap: clamp(40px, 7vh, 110px) clamp(20px, 2.6vw, 48px);
-}
-.bild-gross { grid-column: 4 / 13; margin-right: calc(-1 * var(--rand)); }
-.bild-klein { grid-column: 2 / 6; }
+.sp-bild-gr img, .sp-bild-kl img { width: 100%; }
+.sp-bild-gr { margin-right: calc(-1 * var(--rand)); }
+.bild-tief { margin-top: clamp(40px, 7vh, 100px); }
 @media (max-width: 900px) {
-  .bildfolge { grid-template-columns: 1fr; }
-  .bild-gross, .bild-klein { grid-column: 1; margin-right: 0; }
-  .bild-klein { max-width: 70%; }
-}
-
-/* Die große Zeichnung steht für sich */
-.riss {
-  width: min(1180px, 100% - 2 * var(--rand));
-  margin: clamp(56px, 9vh, 130px) auto 0;
+  .sp-bild-gr { margin-right: 0; }
+  .sp-bild-kl { max-width: 68%; }
 }
 
 /* ---------------------------------------------------------- Leistungen -- */
 .leistungen { margin: 0; padding: 0; list-style: none; }
-.leistungen li { padding: 18px 0; border-bottom: 1px solid var(--linie); }
+.leistungen li { padding: 16px 0; border-bottom: 1px solid var(--linie); }
 .leistungen li:first-child { border-top: 1px solid var(--linie); }
 .leistungen b { font-weight: 400; }
 .leistungen span { color: var(--grau); }
 
 /* -------------------------------------------------------------- Fragen -- */
-.fragen { margin: 0; }
-.fragen > div { padding: 22px 0; border-bottom: 1px solid var(--linie); }
+.fragen > div { padding: 20px 0; border-bottom: 1px solid var(--linie); }
 .fragen > div:first-child { border-top: 1px solid var(--linie); }
-.fragen p { margin: .3em 0 0; color: var(--grau); }
+.fragen p { margin: .25em 0 0; color: var(--grau); }
 
 /* ------------------------------------------------------------- Kontakt -- */
-.anschrift { font-style: normal; color: var(--grau); }
-.wege-kontakt { margin: 26px 0 0; padding: 0; list-style: none; font-family: var(--sans); }
+.anschrift {
+  font-style: normal; font-family: var(--sans); font-size: 13.5px; line-height: 1.75;
+  color: var(--grau);
+}
+.gebiet {
+  margin-top: 22px; font-family: var(--sans); font-size: 13.5px; line-height: 1.7;
+  color: var(--grau);
+}
+.wege-kontakt { margin: 24px 0 0; padding: 0; list-style: none; font-family: var(--sans); }
 .wege-kontakt li {
   display: flex; justify-content: space-between; gap: 14px;
-  padding: 10px 0; border-bottom: 1px solid var(--linie); font-size: 14px;
+  padding: 10px 0; border-bottom: 1px solid var(--linie); font-size: 13.5px;
 }
 .wege-kontakt li:first-child { border-top: 1px solid var(--linie); }
-.wege-kontakt span { color: var(--grau); letter-spacing: .08em; text-transform: uppercase; font-size: 12.5px; }
+.wege-kontakt span {
+  color: var(--grau); letter-spacing: .1em; text-transform: uppercase; font-size: 12px;
+}
 .wege-kontakt a { text-decoration: none; font-weight: 600; overflow-wrap: anywhere; }
 .wege-kontakt a:hover { color: var(--violett); }
 
-form.bogen { margin-top: clamp(30px, 5vh, 60px); }
-.paar { display: grid; gap: 0 clamp(20px, 2.6vw, 44px); grid-template-columns: 1fr 1fr; }
+form.bogen { margin-top: clamp(30px, 5vh, 56px); }
+.paar { display: grid; gap: 0 var(--spalt); grid-template-columns: 1fr 1fr; }
 @media (max-width: 620px) { .paar { grid-template-columns: 1fr; } }
-.eingabe { display: block; margin-bottom: 26px; }
+.eingabe { display: block; margin-bottom: 24px; }
 .eingabe > span {
   display: block; margin-bottom: 7px;
-  font-family: var(--sans); font-size: 12px; font-weight: 500;
+  font-family: var(--sans); font-size: 11.5px; font-weight: 500;
   letter-spacing: .12em; text-transform: uppercase; color: var(--grau);
 }
 .eingabe input, .eingabe textarea {
   width: 100%; padding: 4px 0 10px;
-  font-family: var(--serif); font-size: 21px; line-height: 1.35; color: var(--tusche);
+  font-family: var(--serif); font-size: 20px; line-height: 1.35; color: var(--tusche);
   background: transparent; border: 0; border-bottom: 1px solid var(--linie);
   border-radius: 0;
 }
-.eingabe textarea { min-height: 78px; resize: vertical; }
+.eingabe textarea { min-height: 76px; resize: vertical; }
 .eingabe input:focus, .eingabe textarea:focus { border-bottom-color: var(--tusche); outline: none; }
 .eingabe input::placeholder, .eingabe textarea::placeholder { color: var(--grau-2); }
 
 button.senden {
-  font-family: var(--sans); font-size: 13px; font-weight: 600;
+  font-family: var(--sans); font-size: 12.5px; font-weight: 600;
   letter-spacing: .12em; text-transform: uppercase;
   padding: 15px 30px; border: 1px solid var(--tusche); border-radius: 0;
   background: var(--tusche); color: var(--feld); cursor: pointer;
@@ -285,54 +282,54 @@ button.senden {
 }
 button.senden:hover { background: var(--violett); border-color: var(--violett); }
 .bogen-fuss {
-  margin: 16px 0 0; font-family: var(--sans); font-size: 13px; line-height: 1.55;
+  margin: 16px 0 0; font-family: var(--sans); font-size: 12.5px; line-height: 1.6;
   color: var(--grau); max-width: 46ch;
 }
 .bogen-fuss a { color: var(--tusche); }
 
-.rueckmeldung { margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--tusche); }
-.rueckmeldung p { font-family: var(--sans); font-size: 14px; line-height: 1.6; color: var(--grau); }
+.rueckmeldung { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--tusche); }
+.rueckmeldung p { font-family: var(--sans); font-size: 13.5px; line-height: 1.6; color: var(--grau); }
 .rueckmeldung textarea {
   width: 100%; min-height: 130px; margin: 14px 0; padding: 12px;
-  font-family: var(--sans); font-size: 13.5px; line-height: 1.55; color: var(--tusche);
-  background: rgba(255,255,255,.45); border: 1px solid var(--linie); border-radius: 0;
+  font-family: var(--sans); font-size: 13px; line-height: 1.55; color: var(--tusche);
+  background: rgba(255,255,255,.4); border: 1px solid var(--linie); border-radius: 0;
 }
 .rueckmeldung button {
-  font-family: var(--sans); font-size: 12.5px; font-weight: 600;
+  font-family: var(--sans); font-size: 12px; font-weight: 600;
   letter-spacing: .12em; text-transform: uppercase;
   padding: 11px 20px; border: 1px solid var(--tusche); background: transparent;
   color: var(--tusche); cursor: pointer;
 }
 
-/* ============================================================== Fuß ===== */
-.fuss {
-  width: min(var(--breite), 100% - 2 * var(--rand));
-  margin: 0 auto; padding: 26px 0 34px;
-  border-top: 1px solid var(--linie);
-  display: flex; flex-wrap: wrap; gap: 10px 26px; justify-content: space-between;
-  font-family: var(--sans); font-size: 12.5px; font-weight: 500;
-  letter-spacing: .1em; text-transform: uppercase; color: var(--grau-2);
-}
+/* ================================================================ Fuß === */
+.fuss { padding: 26px 0 34px; }
+.fuss .gitter { border-top: 1px solid var(--linie); padding-top: 24px; }
+.fuss .links  { grid-column: 1 / 7; }
+.fuss .rechts { grid-column: 10 / 13; text-align: right; }
 .fuss a { text-decoration: none; }
 .fuss a:hover { color: var(--tusche); }
-.fuss nav { display: flex; flex-wrap: wrap; gap: 10px 22px; }
+.fuss .rechts a + a { margin-left: 20px; }
+@media (max-width: 900px) {
+  .fuss .links, .fuss .rechts { text-align: left; }
+  .fuss .rechts a { margin: 0 20px 0 0; }
+}
 
 /* ================================================= Leiste beim Scrollen = */
 .leiste {
   position: fixed; inset: 0 0 auto; z-index: 40;
-  padding: 16px var(--rand);
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
-  align-items: baseline;
-  background: var(--feld);
-  border-bottom: 1px solid var(--linie);
+  padding-block: 15px;
+  background: var(--feld); border-bottom: 1px solid var(--linie);
   transform: translateY(-101%); transition: transform .3s ease;
 }
 .leiste[data-fest="ja"] { transform: none; }
-.leiste > *:last-child { text-align: right; }
-.leiste a:hover { opacity: .6; }
-@media (max-width: 720px) {
-  .leiste { grid-template-columns: 1fr auto; }
-  .leiste > *:nth-child(2), .leiste > *:nth-child(3) { display: none; }
+.leiste .gitter { align-items: baseline; }
+.leiste .gitter > *:nth-child(1) { grid-column: 1 / 4; }
+.leiste .gitter > *:nth-child(2) { grid-column: 4 / 7; }
+.leiste .gitter > *:nth-child(3) { grid-column: 7 / 10; }
+.leiste .gitter > *:nth-child(4) { grid-column: 10 / 13; text-align: right; }
+@media (max-width: 900px) {
+  .leiste .gitter { display: flex; justify-content: space-between; align-items: baseline; }
+  .leiste .gitter > *:nth-child(2), .leiste .gitter > *:nth-child(3) { display: none; }
 }
 
 /* =========================================================== Zeichnungen */
@@ -353,34 +350,20 @@ button.senden:hover { background: var(--violett); border-color: var(--violett); 
 .zeichnung--klein text { font-size: 13px; }
 
 /* ====================================================== Rechtsseiten ==== */
-.rechtstext {
-  width: min(var(--breite), 100% - 2 * var(--rand));
-  margin-inline: auto;
-  padding-block: clamp(80px, 12vh, 150px) clamp(60px, 9vh, 110px);
-  display: grid;
-  grid-template-columns: minmax(0, 2.2fr) minmax(0, 6.6fr) minmax(0, 3.2fr);
-  gap: 0 clamp(20px, 2.6vw, 48px);
-}
-@media (max-width: 900px) { .rechtstext { grid-template-columns: 1fr; gap: 22px; } }
-.rechtstext > * { grid-column: 2; }
-.rechtstext > .marginalie { grid-column: 1; }
-@media (max-width: 900px) { .rechtstext > *, .rechtstext > .marginalie { grid-column: 1; } }
-.rechtstext h1 { font-size: clamp(28px, 3vw, 42px); margin-bottom: .6em; }
+.rechtstext { padding-block: clamp(100px, 14vh, 170px) clamp(60px, 9vh, 110px); }
+.rechtstext h1 { font-size: clamp(28px, 3vw, 40px); margin-bottom: .6em; }
 .rechtstext h2 {
-  font-family: var(--sans); font-size: 13px; font-weight: 600;
+  font-family: var(--sans); font-size: 12.5px; font-weight: 600;
   letter-spacing: .12em; text-transform: uppercase; color: var(--grau);
   margin: 2.2em 0 .5em;
 }
 .rechtstext h3 { font-family: var(--sans); font-size: 15px; font-weight: 600; margin: 1.4em 0 .3em; }
-.rechtstext p, .rechtstext li { font-size: clamp(17px, 1.3vw, 20px); line-height: 1.45; color: var(--grau); }
+.rechtstext p, .rechtstext li { font-size: clamp(17px, 1.25vw, 19px); line-height: 1.5; color: var(--grau); }
 .rechtstext a { color: var(--tusche); }
 .rechtstext address { font-style: normal; color: var(--grau); line-height: 1.6; }
 .rechtstext ul { padding-left: 1.1em; }
 .rechtstext li { margin-bottom: .2em; }
-.luecke {
-  background: rgba(81, 25, 114, .12); color: var(--tusche);
-  padding: 1px 6px; font-size: .92em;
-}
+.luecke { background: rgba(81, 25, 114, .12); color: var(--tusche); padding: 1px 6px; font-size: .92em; }
 
 /* ============================================== Einblenden beim Scrollen = */
 .js-an .auf { opacity: 0; transform: translateY(10px); }
@@ -390,24 +373,9 @@ button.senden:hover { background: var(--violett); border-color: var(--violett); 
 }
 @media (prefers-reduced-motion: reduce) { .js-an .auf { opacity: 1; transform: none; } }
 
-/* In der Leiste steht am Handy die Nummer statt des Wegs zum Formular */
-.nur-schmal { display: none; }
-@media (max-width: 720px) {
+/* Am Handy nur die Wortmarke, und die Nummer bricht nicht um */
+.nur-breit { display: inline; }
+@media (max-width: 900px) {
   .nur-breit { display: none; }
-  .nur-schmal { display: inline; }
+  .wege > *:last-child { white-space: nowrap; }
 }
-
-/* Verlauf nur über Kopf und Fuß des ersten Schirms — die Mitte mit dem
-   Lichtrahmen bleibt unberührt, die weiße Schrift steht trotzdem sicher */
-.schirm::after {
-  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: linear-gradient(to bottom,
-    rgba(12,10,8,.46) 0%, rgba(12,10,8,.06) 20%,
-    rgba(12,10,8,.04) 55%, rgba(12,10,8,.66) 100%);
-}
-
-/* Die Bilder füllen ihre Spalte aus — das große läuft rechts aus dem Satz */
-.bildfolge img { width: 100%; }
-
-/* Auf den Rechtsseiten steht die Leiste ohne Skript schon oben */
-.rechtstext { padding-top: clamp(100px, 14vh, 170px); }
