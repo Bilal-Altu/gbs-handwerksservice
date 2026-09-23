@@ -4,7 +4,10 @@ Kostenloser Entwurf für **GBS Handwerksservice, Christian Klein**, In der Hainl
 68642 Bürstadt (Spanndecken, Lichtdecken, Infrarot-Deckenheizung, Innentüren).
 Ersatz für die bestehende Jimdo-Seite <https://www.gbs-handwerksservice.de/>.
 
-`noindex` und per `robots.txt` gesperrt — eine Vorschau, keine veröffentlichte Seite.
+**Vorschau:** <https://bilal-altu.github.io/gbs-handwerksservice/>
+
+Die Seite steht auf `noindex` und ist per `robots.txt` für Suchmaschinen gesperrt — sie
+ist über den Link erreichbar, wird aber nicht gefunden.
 
 ---
 
