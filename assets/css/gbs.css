@@ -239,18 +239,26 @@ ul { padding: 0; list-style: none; }
 
 /* =============================================================== Titel === */
 .titel {
-  min-height: 500px;
+  min-height: 520px;
   height: calc(100svh - var(--kopfhoch) - var(--rand) - var(--luft));
-  max-height: 880px;
+  max-height: 900px;
   display: grid;
   grid-template-rows: auto 1fr auto;
   color: var(--tinte);
 }
-.titel .tafel-bild img { object-position: 50% 50%; }
 
-.titel-text { align-self: end; max-width: 30em; padding-block: 18px 34px; }
+/* Satz links, Bild rechts — das Bild ist bewusst nur fünf Spalten breit,
+   weil die Vorlage nur 700 Pixel hergibt. Kleiner und scharf schlägt groß
+   und weich. */
+.titel-innen { align-items: stretch; min-height: 0; padding-block: 22px; }
+.titel-text { grid-column: 1 / 8; padding-bottom: 4px; }
+.titel-bild {
+  grid-column: 8 / 13; min-height: 0;
+  border-radius: 10px; overflow: hidden; background: var(--feld-2);
+}
+.titel-bild picture, .titel-bild img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .titel h1 {
-  font-size: clamp(32px, 4.6vw, 62px);
+  font-size: clamp(34px, 5.3vw, 74px);
   font-weight: 400; line-height: 0.99; letter-spacing: -0.048em;
   text-wrap: balance;
 }
@@ -268,8 +276,8 @@ ul { padding: 0; list-style: none; }
 }
 .gitter > * { min-width: 0; }
 
-.sp-links  { grid-column: 1 / 6; }
-.sp-rechts { grid-column: 7 / 13; }
+.sp-links  { grid-column: 1 / 7; }
+.sp-rechts { grid-column: 8 / 13; }
 .sp-halb   { grid-column: 1 / 7; }
 .sp-voll   { grid-column: 1 / 13; }
 .sp-text   { grid-column: 1 / 7; }
@@ -502,19 +510,12 @@ address { font-style: normal; }
 }
 
 /* ------------------------------------------------------ Titel am Handy -- */
-/* Hochkant reicht der Platz nicht, um Schrift sicher auf das Bild zu legen:
-   Dann steht das Bild für sich und der Satz darunter. */
+/* Hochkant steht das Bild oben und der Satz darunter. */
 @media (max-width: 700px) {
   .titel { height: auto; min-height: 0; max-height: none; grid-template-rows: none; }
-  .titel .tafel-bild {
-    position: static; order: 2;
-    aspect-ratio: 5 / 4; border-radius: 10px; overflow: hidden;
-    margin-block: 16px 20px;
-  }
-  .titel .tafel-bild img { height: 100%; }
-  .titel > .zeile:first-of-type { order: 1; }
-  .titel-text { order: 3; padding-block: 0 26px; align-self: auto; }
-  .titel > .zeile:last-of-type { order: 4; }
+  .titel-innen { grid-template-columns: minmax(0, 1fr); row-gap: 18px; padding-block: 16px; }
+  .titel-bild { grid-column: 1; order: 1; aspect-ratio: 5 / 4; }
+  .titel-text { grid-column: 1; order: 2; align-self: auto; padding-bottom: 6px; }
 }
 
 /* Steht die Beschriftung am Handy größer, muss das weiße Feld darunter
@@ -533,3 +534,27 @@ address { font-style: normal; }
 /* Der Satz neben dem letzten Bild steht auf dessen Fußzeile. */
 .werk-satz { align-self: end; padding-bottom: 2px; }
 @media (max-width: 980px) { .werk-satz { align-self: auto; } }
+
+/* Die Arbeiten stehen unregelmäßig im Raster und werden nicht auf gleiche
+   Höhe gezogen — jedes Bild behält sein Format. */
+.werk { align-self: start; }
+.randlos { min-height: 0; }
+
+/* ------------------------------------------------------- Titel: Textteil -- */
+/* Oben die Kennwerte, unten der Satz — dazwischen bleibt Luft stehen. */
+.titel-text { display: grid; grid-template-rows: auto 1fr; height: 100%; min-height: 0; }
+.titel-satz { align-self: end; }
+.titel-werte {
+  display: flex; flex-wrap: wrap;
+  gap: 14px clamp(22px, 3vw, 46px);
+}
+.titel-werte li { display: grid; gap: 4px; }
+.titel-werte span { color: var(--grau); }
+.titel-werte b {
+  font-weight: 400; font-size: clamp(15px, 1.3vw, 19px); letter-spacing: -0.03em;
+}
+
+@media (max-width: 700px) {
+  .titel-text { display: block; height: auto; }
+  .titel-werte { margin-bottom: 26px; }
+}

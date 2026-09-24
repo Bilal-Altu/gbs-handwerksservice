@@ -1,4 +1,4 @@
-| 04 Ausgeführt | drei Räume mit Datenzeile, daneben ein Satz in der Randspalte |# GBS Handwerksservice — Website-Entwurf
+# GBS Handwerksservice — Website-Entwurf
 
 Kostenloser Entwurf für **GBS Handwerksservice, Christian Klein**, In der Hainlache 33,
 68642 Bürstadt (Spanndecken, Lichtdecken, Infrarot-Deckenheizung, Innentüren).
@@ -41,11 +41,11 @@ zusammen 51 KB.
 
 | | |
 |---|---|
-| Titeltafel | Bild über die ganze Tafel, Versprechen, zwei Knöpfe |
-| 01 Der Aufbau | ein Absatz, vier Kennwerte, darunter die große Schnittzeichnung |
+| Titeltafel | Kennwerte oben, Versprechen unten, rechts das Bild |
+| 01 Der Aufbau | ein Absatz und die große Schnittzeichnung |
 | 02 Lichtdecke | dunkle Tafel, Aussage links, Aufnahme rechts |
 | 03 Leistungen | vier Posten; wer einen anklickt, sieht die passende Zeichnung |
-| 04 Ausgeführt | drei Räume mit Datenzeile |
+| 04 Ausgeführt | drei Räume mit Datenzeile, daneben ein Satz in der Randspalte |
 | 05 Fragen | vier Fragen, zweispaltig |
 | 06 Aufmaß | dunkle Tafel: Anfragebogen, Wege, Anschrift, Partnerzertifikat |
 
@@ -110,16 +110,20 @@ skalieren — in dieser Reihenfolge.
 **Die Vorlagen sind klein.** Am 24.09.2026 nachgeprüft: Die Jimdo-Adressen
 `teaserbox_*` sind die größten, die die alte Seite hergibt (812 bis 900 px breit);
 `cache_*` ist nur die Anzeigegröße und deutlich kleiner. Auf keiner der vier
-Unterseiten liegt etwas anderes. Daraus folgen zwei Regeln, die das Skript erzwingt
-(es bricht sonst ab):
+Unterseiten liegt etwas anderes. Daraus folgen drei Regeln, die erste erzwingt das
+Skript (es bricht sonst ab):
 
-1. **Nicht hochrechnen.** Jedes Bild wird höchstens in seiner eigenen
-   Ausschnittsbreite ausgeliefert. Das Seitenlayout ist danach gebaut — nur die
-   Titeltafel zeigt mehr (1365 px aus 812), weil ein randloses Titelbild aus dieser
-   Vorlage anders nicht geht.
+1. **Kleiner zeigen, als die Vorlage breit ist.** Jedes Bild steht bei höchstens
+   0,8× seiner Vorlagenbreite — bei 1440 px sind das 539 bis 557 px Anzeige aus
+   700 bis 720 px Vorlage. Das Seitenlayout ist nach diesen Breiten gebaut, nicht
+   umgekehrt: Deshalb ist das Titelbild kein randloses Vollbild mehr, sondern steht
+   in fünf von zwölf Spalten neben dem Satz. Ein kleines, gestochenes Bild sieht
+   teuer aus, ein großes weiches billig.
 2. **Schärfen vor dem Skalieren.** Umgekehrt entstehen helle Ränder an jeder Kante,
    die wie Unschärfe aussehen. Die erste Fassung dieser Seite hatte genau den Fehler:
    Titelbild 2,2× hochgerechnet und danach geschärft.
+3. **Ruhig abstimmen.** Viel Kontrast frisst auf weichen Vorlagen die letzte
+   Zeichnung. Ein Rest Farbe (Sättigung 0,18) hält die Räume bewohnbar.
 
 | Bild | Motiv | Herkunft |
 |---|---|---|
