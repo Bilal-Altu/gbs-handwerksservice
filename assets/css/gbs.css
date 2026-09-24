@@ -529,3 +529,7 @@ address { font-style: normal; }
 /* Die Rückmeldung steht erst da, wenn wirklich abgeschickt wurde —
    display:grid schlägt sonst das hidden-Attribut. */
 .rueckmeldung[hidden] { display: none; }
+
+/* Der Satz neben dem letzten Bild steht auf dessen Fußzeile. */
+.werk-satz { align-self: end; padding-bottom: 2px; }
+@media (max-width: 980px) { .werk-satz { align-self: auto; } }

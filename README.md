@@ -1,4 +1,4 @@
-# GBS Handwerksservice — Website-Entwurf
+| 04 Ausgeführt | drei Räume mit Datenzeile, daneben ein Satz in der Randspalte |# GBS Handwerksservice — Website-Entwurf
 
 Kostenloser Entwurf für **GBS Handwerksservice, Christian Klein**, In der Hainlache 33,
 68642 Bürstadt (Spanndecken, Lichtdecken, Infrarot-Deckenheizung, Innentüren).
@@ -103,8 +103,23 @@ die Anfrage nicht abschicken. Für die echte Seite gehört da ein richtiger Vers
 ## Bilder
 
 Alle Aufnahmen stammen von der bestehenden GBS-Seite. Rezept in
-`werkzeug/bilder-bauen.sh`: beschneiden, Weißabgleich messen und neutralisieren, auf
-Restfarbe herunterziehen, hart abstimmen, dann AVIF und JPEG in zwei Größen.
+`werkzeug/bilder-bauen.sh`: beschneiden, Weißabgleich messen und neutralisieren,
+leicht entrauschen, auf Restfarbe herunterziehen, hart abstimmen, schärfen, dann
+skalieren — in dieser Reihenfolge.
+
+**Die Vorlagen sind klein.** Am 24.09.2026 nachgeprüft: Die Jimdo-Adressen
+`teaserbox_*` sind die größten, die die alte Seite hergibt (812 bis 900 px breit);
+`cache_*` ist nur die Anzeigegröße und deutlich kleiner. Auf keiner der vier
+Unterseiten liegt etwas anderes. Daraus folgen zwei Regeln, die das Skript erzwingt
+(es bricht sonst ab):
+
+1. **Nicht hochrechnen.** Jedes Bild wird höchstens in seiner eigenen
+   Ausschnittsbreite ausgeliefert. Das Seitenlayout ist danach gebaut — nur die
+   Titeltafel zeigt mehr (1365 px aus 812), weil ein randloses Titelbild aus dieser
+   Vorlage anders nicht geht.
+2. **Schärfen vor dem Skalieren.** Umgekehrt entstehen helle Ränder an jeder Kante,
+   die wie Unschärfe aussehen. Die erste Fassung dieser Seite hatte genau den Fehler:
+   Titelbild 2,2× hochgerechnet und danach geschärft.
 
 | Bild | Motiv | Herkunft |
 |---|---|---|
