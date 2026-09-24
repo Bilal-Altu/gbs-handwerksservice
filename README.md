@@ -23,8 +23,9 @@ Vorbild ist <https://www.genesis.ai>. Übernommen ist die Sprache, nicht das Aus
   Laufzeiten, hier sind es Maße — das passt zu einem Betrieb, der Räume aufmisst.
 * **Kleine Schrift, große Bilder.** Fließtext 15–17 px, Beschriftungen 11 px; die
   Wirkung kommt aus den Aufnahmen und aus der Leere, nicht aus dem Schriftgrad.
-* **Fast entfärbte Bilder.** Alle Fotos sind auf Restfarbe heruntergezogen, hart
-  abgestimmt und gleich hell. Aus Handyfotos werden so Architekturaufnahmen.
+* **Gedämpfte Bilder.** Alle Fotos stehen auf Sättigung 0,60 und sind ruhig
+  abgestimmt und gleich hell — dadurch sitzen Produktaufnahmen und Handyfotos im
+  selben Ton, ohne dass die Seite grau wirkt.
 * **Zwei dunkle Tafeln** setzen den Rhythmus: „Licht, das keine Lampe ist" und das
   Aufmaß am Ende.
 * **Knöpfe** sind klein, 6 px rund, in Maschinenschrift — kein Marketing-Balken.
@@ -43,7 +44,7 @@ zusammen 51 KB.
 |---|---|
 | Titeltafel | Kennwerte oben, Versprechen unten, rechts das Bild |
 | 01 Der Aufbau | ein Absatz und die große Schnittzeichnung |
-| 02 Lichtdecke | dunkle Tafel, Aussage links, Aufnahme rechts |
+| 02 Licht und Oberfläche | dunkle Tafel: Aussage und drei Produktaufnahmen |
 | 03 Leistungen | vier Posten; wer einen anklickt, sieht die passende Zeichnung |
 | 04 Ausgeführt | drei Räume mit Datenzeile, daneben ein Satz in der Randspalte |
 | 05 Fragen | vier Fragen, zweispaltig |
@@ -127,21 +128,27 @@ Skript (es bricht sonst ab):
 
 | Bild | Motiv | Herkunft |
 |---|---|---|
-| `titel` | Küchendecke mit Lichtrahmen | eigene Arbeit |
-| `kueche` | dieselbe Küche, ganzer Raum | eigene Arbeit |
+| `titel` | Wohnraum, Hochglanz weiß | **Produktaufnahme** |
+| `licht` | Bad mit großem Lichtfeld | **Produktaufnahme** |
+| `kind` | Kinderzimmer, runde Leuchte | **Produktaufnahme** |
+| `flaeche` | Küche mit Essplatz, Lichtrahmen | **Produktaufnahme** |
+| `kueche` | Küche in Bürstadt, ganzer Raum | eigene Arbeit |
 | `bad` | Hochglanzdecke, LED über dem Spiegelschrank | eigene Arbeit |
 | `holz` | Küche mit Essplatz, Lichtfeld | eigene Arbeit |
-| `licht` | Flur mit großer Lichtdecke | **Produktaufnahme CILING** |
 | `zertifikat` | Partnerurkunde | CILING |
 
-Das Flurbild ist als Produktaufnahme gekennzeichnet — in der Ecke der Tafel steht
-„Produktaufnahme CILING". Das Wasserzeichen ist weggeschnitten, deshalb muss die
-Kennzeichnung stehen bleiben.
+**Die vier Produktaufnahmen kamen am 24.09.2026 von Bilal; woher sie stammen, ist
+nicht geklärt.** Auf der Seite stehen sie in der Ecke der jeweiligen Tafel als
+„Produktaufnahme" gekennzeichnet und werden nirgends als ausgeführte Arbeit von GBS
+ausgegeben — die eigenen Aufnahmen stehen getrennt darunter unter „04 — Ausgeführt".
+Vor einem Livegang muss geklärt sein, wem die Bilder gehören und ob sie verwendet
+werden dürfen. Sonst gegen eigene Aufnahmen tauschen.
 
 ### Was die Seite deutlich besser machen würde
 
-1. **Mehr und bessere Fotos.** Diese Gestaltung lebt vom Bild. Vier eigene Aufnahmen
-   sind das Minimum; mit acht wäre sie eine andere Seite.
+1. **Eigene Fotos statt Produktaufnahmen.** Vier der sieben Bilder sind Produkt-
+   aufnahmen. Sobald Christian Klein sechs bis zehn eigene Räume fotografiert, kann
+   die Seite ohne fremdes Material auskommen — und wird dadurch glaubwürdiger.
 2. **Vorher/Nachher-Paare** aus demselben Blickwinkel.
 3. **Ein Foto von Christian Klein bei der Montage.**
 
@@ -154,8 +161,9 @@ Kennzeichnung stehen bleiben.
 * **Die Bildunterschriften** („matt, Lichtrahmen" / „Hochglanz" / „Satin, Lichtfeld")
   sind aus den Fotos abgelesen — kurz gegenlesen lassen. Auch, ob alle drei Räume
   wirklich seine Arbeiten sind.
-* **Das Flurbild und das Zertifikat** gehören CILING. Vor dem Livegang einmal abnicken
-  lassen — oder das Flurbild gegen eine eigene Lichtdecke tauschen.
+* **Die vier Produktaufnahmen und das Zertifikat** gehören nicht GBS. Vor dem Livegang
+  klären, wem sie gehören und ob sie verwendet werden dürfen — oder gegen eigene
+  Aufnahmen tauschen.
 * **Impressum:** Umsatzsteuer-ID (oder Kleinunternehmerregelung), Berufsbezeichnung und
   zuständige Handwerkskammer — im Entwurf markiert.
 * **Datenschutz:** Name und Anschrift des Hosters — ebenfalls markiert.

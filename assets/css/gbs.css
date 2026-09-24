@@ -477,7 +477,7 @@ address { font-style: normal; }
 
 /* Bild neben einem Text, das auf dessen Höhe mitwächst. */
 .bildfeld { display: grid; }
-.randlos { border-radius: 10px; overflow: hidden; min-height: 300px; }
+.randlos { border-radius: 10px; overflow: hidden; aspect-ratio: 700 / 622; align-self: start; }
 .randlos img { width: 100%; height: 100%; object-fit: cover; }
 
 /* Ausgeführte Arbeiten */
@@ -486,7 +486,7 @@ address { font-style: normal; }
 .werk .arbeit img { width: 100%; height: 100%; object-fit: cover; }
 
 @media (max-width: 980px) {
-  .randlos { min-height: 0; aspect-ratio: 1400 / 732; }
+  .randlos { aspect-ratio: 4 / 3; }
   .werk .arbeit { aspect-ratio: auto !important; }
   .werk .arbeit picture, .werk .arbeit img { height: auto; }
 }
@@ -506,7 +506,6 @@ address { font-style: normal; }
 @media (max-width: 980px) {
   .zeichnung text { font-size: 15px; }
   .zeichnung--gross text { font-size: 24px; }
-  .randlos { aspect-ratio: 4 / 3; }
 }
 
 /* ------------------------------------------------------ Titel am Handy -- */
@@ -538,7 +537,6 @@ address { font-style: normal; }
 /* Die Arbeiten stehen unregelmäßig im Raster und werden nicht auf gleiche
    Höhe gezogen — jedes Bild behält sein Format. */
 .werk { align-self: start; }
-.randlos { min-height: 0; }
 
 /* ------------------------------------------------------- Titel: Textteil -- */
 /* Oben die Kennwerte, unten der Satz — dazwischen bleibt Luft stehen. */
@@ -558,3 +556,6 @@ address { font-style: normal; }
   .titel-text { display: block; height: auto; }
   .titel-werte { margin-bottom: 26px; }
 }
+
+/* Auf der dunklen Tafel darf der Platzhalter hinter einem Bild nicht hell sein. */
+.tafel--nacht .arbeit { background: var(--nacht-2); }
