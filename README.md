@@ -13,44 +13,41 @@ ist über den Link erreichbar, wird aber nicht gefunden.
 
 ## Die Gestaltung
 
-Vorbild ist <https://studiograpa.com>. Übernommen ist die Sprache, nicht das Aussehen:
+Vorbild ist <https://www.genesis.ai>. Übernommen ist die Sprache, nicht das Aussehen:
 
-* **Alles auf einem Zwölferraster.** Navigation, Text, Bilder, Zeichnungen und
-  Formular teilen sich dieselben senkrechten Linien — Textspalte 3 bis 8,
-  Marginalie 1 bis 2, Beiwerk 10 bis 12.
-* **Ein durchgehendes warmes Farbfeld** statt Weiß — hier ein Sandton (`#e3d8c8`), bei
-  Grapa ein Aprikot. Die ganze Seite ist eine Fläche, ohne Kästen und ohne Abschnitte,
-  die sich farblich abwechseln.
-* **Winzige Navigation in festen Positionen** quer über die Breite, in Versalien,
-  13 Pixel, mit Kommas getrennt. Keine Menüleiste, kein Knopf.
-* **Lauftext in großer Serifenschrift** (Newsreader, 20–27 px, Zeilenabstand 1,34) in
-  einer schmalen Spalte, die etwa ein Viertel von links eingerückt steht. Daneben eine
-  Marginalspalte für die Bezeichnung des Abschnitts.
-* **Bilder in unregelmäßigen Breiten und Positionen** — das große Küchenbild läuft
-  rechts aus dem Satzspiegel heraus, das kleine Bad steht tiefer und weiter links.
-* **Viel Leere.** Zwischen den Bahnen stehen 110 bis 230 Pixel Luft.
-* **Erster Schirm:** ein bildfüllendes Foto über die volle Höhe, die Schrift schwebt
-  darauf, kein Kasten und kein Balken. Oben die Wege, unten links das Versprechen,
-  unten rechts der Weg zum Aufmaß.
+* **Weißes Blatt, darauf Tafeln.** Jeder Abschnitt ist eine eigene Fläche mit 16 px
+  runden Ecken, vom Blattrand eingerückt. Dazwischen bleibt Weiß stehen.
+* **Messstriche und Maschinenschrift in den Ecken.** Oben und unten an jeder Tafel
+  läuft eine Reihe feiner Striche, dazwischen steht links, worum es geht, und rechts
+  ein Wert: `01 — Der Aufbau` / `3–5 cm unter der alten Decke`. Bei Genesis sind das
+  Laufzeiten, hier sind es Maße — das passt zu einem Betrieb, der Räume aufmisst.
+* **Kleine Schrift, große Bilder.** Fließtext 15–17 px, Beschriftungen 11 px; die
+  Wirkung kommt aus den Aufnahmen und aus der Leere, nicht aus dem Schriftgrad.
+* **Fast entfärbte Bilder.** Alle Fotos sind auf Restfarbe heruntergezogen, hart
+  abgestimmt und gleich hell. Aus Handyfotos werden so Architekturaufnahmen.
+* **Zwei dunkle Tafeln** setzen den Rhythmus: „Licht, das keine Lampe ist" und das
+  Aufmaß am Ende.
+* **Knöpfe** sind klein, 6 px rund, in Maschinenschrift — kein Marketing-Balken.
 
-Über dem Titelbild liegt **kein Verlauf**. Das Foto ist stattdessen enger auf die
-Decke beschnitten und aufgehellt (Mittelwert 174 von 255), sodass die dunkle Schrift
-mit mindestens 5,5:1 darauf steht. Navigationslinks tragen erst beim Zeigen einen
-Unterstrich.
+**Farben:** Weiß `#ffffff`, Tafel `#f1f2f1`, Tinte `#111417`, Grau `#656a6e`,
+Linie `#dde2e4`, dunkle Tafel `#14171a`. Keine Schmuckfarbe. Jede Paarung ist
+nachgerechnet: Grau auf der Tafel 4,9:1, alles andere darüber.
 
-**Schriften:** Newsreader (Lauftext, mager und kursiv) und Instrument Sans (alles
-Kleine). Beide selbst ausgeliefert, keine Verbindung zu Google, zusammen 88 KB.
+**Schriften:** Instrument Sans (alles Laufende) und Geist Mono 500 (alle Werte,
+Beschriftungen und Knöpfe). Beide selbst ausgeliefert, keine Verbindung zu Google,
+zusammen 51 KB.
 
 ## Aufbau
 
 | | |
 |---|---|
-| Erster Schirm | Bild über die volle Höhe, Wege, Versprechen |
-| Der Aufbau | ein Absatz, Kennwerte in der Randspalte, darunter die große Schnittzeichnung |
-| Ausgeführt | zwei Räume, unregelmäßig gesetzt |
-| Leistungen | vier Zeilen, daneben zwei kleine Schnitte |
-| Fragen | vier Fragen |
-| Aufmaß | Anschrift, Wege, Anfragebogen, Partnerzertifikat |
+| Titeltafel | Bild über die ganze Tafel, Versprechen, zwei Knöpfe |
+| 01 Der Aufbau | ein Absatz, vier Kennwerte, darunter die große Schnittzeichnung |
+| 02 Lichtdecke | dunkle Tafel, Aussage links, Aufnahme rechts |
+| 03 Leistungen | vier Posten; wer einen anklickt, sieht die passende Zeichnung |
+| 04 Ausgeführt | drei Räume mit Datenzeile |
+| 05 Fragen | vier Fragen, zweispaltig |
+| 06 Aufmaß | dunkle Tafel: Anfragebogen, Wege, Anschrift, Partnerzertifikat |
 
 Dazu `impressum.html` und `datenschutz.html` in derselben Sprache.
 
@@ -61,28 +58,38 @@ Reines HTML, CSS und etwas JavaScript — kein Framework, kein Build. Hochladen 
 ```
 index.html · impressum.html · datenschutz.html · favicon.svg · robots.txt
 assets/css/gbs.css      alle Stile
-assets/js/gbs.js        Leiste, Einblenden, Formular
-assets/fonts/*.woff2    Newsreader und Instrument Sans
+assets/js/gbs.js        Kopfleiste, Einblenden, Reiter, Formular
+assets/fonts/*.woff2    Instrument Sans und Geist Mono
 assets/img/*            AVIF + JPEG, je zwei Größen
 werkzeug/bilder-bauen.sh  das Bildrezept
 quelle/                 Originalbilder der alten Seite — nicht hochladen
 muster/                 frühere Musterentwürfe — nicht hochladen
 ```
 
-* Ohne JavaScript steht die Seite vollständig da; kommt `gbs.js` nicht an, holt ein
-  Sicherungstimer im `<head>` alle Abschnitte nach drei Sekunden zurück.
-* Der erste Schirm füllt genau eine Bildschirmhöhe (`100svh`).
-* Am Handy bleiben oben nur Wortmarke und Telefonnummer; die Wege kommen mit der
-  Leiste, sobald man scrollt.
-* Kein waagerechtes Scrollen bei 375, 900, 1440 und 1920 Pixeln Breite.
+* Ohne JavaScript steht die Seite vollständig da: Die vier Zeichnungen der Leistungen
+  stehen dann untereinander statt hinter Reitern, und kommt `gbs.js` gar nicht an,
+  holt ein Sicherungstimer im `<head>` alle Abschnitte nach drei Sekunden zurück.
+* Die Reiter der Leistungen sind ein richtiges `tablist` — mit Pfeiltasten, Home und
+  End bedienbar.
+* Die Titeltafel füllt genau eine Bildschirmhöhe (`100svh`), höchstens aber 880 px.
+* **Am Handy steht der Satz nicht mehr auf dem Bild**, sondern darunter: Hochkant ist zu
+  wenig Bild übrig, um Schrift sicher darauf zu legen. Die Tafel ordnet sich dafür per
+  `order` neu.
+* Kein waagerechtes Scrollen bei 375, 700, 980, 1440 und 1920 Pixeln Breite.
 
 ### Die Zeichnungen
 
-Drei Schnitte als Inline-SVG: Deckenaufbau (Leiste, eingehängte Folie, Maß 3–5 cm,
-Einbauspot), Lichtdecke und Deckenheizung. Strichstärken stehen auf
-`vector-effect: non-scaling-stroke`. **Achtung beim Weiterbauen:** `.zeichnung .l`
-setzt `fill: none` — CSS schlägt das `fill`-Attribut im SVG. Flächen brauchen deshalb
-die Klasse `.fl-feld`.
+Vier Schnitte als Inline-SVG: Deckenaufbau, Spanndecke, Lichtdecke, Deckenheizung und
+der Grundriss einer Innentür. Strichstärken stehen auf `vector-effect:
+non-scaling-stroke`, damit sie in jeder Größe gleich fein bleiben.
+
+**Zwei Fallen beim Weiterbauen:**
+
+1. `.zeichnung .l` setzt `fill: none` — CSS schlägt das `fill`-Attribut im SVG.
+   Flächen brauchen deshalb die Klasse `.fl-feld`.
+2. Die Beschriftung steht in Zeichnungseinheiten, wird also mit der Zeichnung kleiner.
+   Am Handy ist sie deshalb per Media Query größer gesetzt — und das weiße Feld hinter
+   der längsten Beschriftung muss dort mitwachsen (`.feld-lang`).
 
 ### Das Anfrageformular
 
@@ -95,18 +102,27 @@ die Anfrage nicht abschicken. Für die echte Seite gehört da ein richtiger Vers
 
 ## Bilder
 
-Beide Fotos stammen von der bestehenden GBS-Seite, sind hart auf Decke, Kante und Licht
-beschnitten, im Weißabgleich neutralisiert und gleich abgestimmt. Rezept in
-`werkzeug/bilder-bauen.sh`.
+Alle Aufnahmen stammen von der bestehenden GBS-Seite. Rezept in
+`werkzeug/bilder-bauen.sh`: beschneiden, Weißabgleich messen und neutralisieren, auf
+Restfarbe herunterziehen, hart abstimmen, dann AVIF und JPEG in zwei Größen.
 
-Das bildfüllende Foto im ersten Schirm ist aus demselben Küchenbild geschnitten und auf
-1920 Pixel hochgerechnet. Das trägt, weil die Deckenfläche glatt ist und kaum feine
-Zeichnung enthält — bei einem detailreichen Motiv würde das nicht funktionieren.
+| Bild | Motiv | Herkunft |
+|---|---|---|
+| `titel` | Küchendecke mit Lichtrahmen | eigene Arbeit |
+| `kueche` | dieselbe Küche, ganzer Raum | eigene Arbeit |
+| `bad` | Hochglanzdecke, LED über dem Spiegelschrank | eigene Arbeit |
+| `holz` | Küche mit Essplatz, Lichtfeld | eigene Arbeit |
+| `licht` | Flur mit großer Lichtdecke | **Produktaufnahme CILING** |
+| `zertifikat` | Partnerurkunde | CILING |
+
+Das Flurbild ist als Produktaufnahme gekennzeichnet — in der Ecke der Tafel steht
+„Produktaufnahme CILING". Das Wasserzeichen ist weggeschnitten, deshalb muss die
+Kennzeichnung stehen bleiben.
 
 ### Was die Seite deutlich besser machen würde
 
-1. **Mehr und bessere Fotos.** Diese Gestaltung lebt vom Bild. Zwei Aufnahmen sind das
-   Minimum; mit fünf oder sechs wäre sie eine andere Seite.
+1. **Mehr und bessere Fotos.** Diese Gestaltung lebt vom Bild. Vier eigene Aufnahmen
+   sind das Minimum; mit acht wäre sie eine andere Seite.
 2. **Vorher/Nachher-Paare** aus demselben Blickwinkel.
 3. **Ein Foto von Christian Klein bei der Montage.**
 
@@ -116,14 +132,16 @@ Zeichnung enthält — bei einem detailreichen Motiv würde das nicht funktionie
 
 * **„Aufbauhöhe 3–5 cm"** und **„Montage je Raum 1 Tag"** stehen so nicht auf seiner
   alten Seite — Branchenwerte, muss er bestätigen oder korrigieren.
-* **Die Bildunterschriften** („matt, Lichtrahmen mit LED" / „Hochglanz, Spots und
-  Voute") sind aus den Fotos abgelesen — kurz gegenlesen lassen.
+* **Die Bildunterschriften** („matt, Lichtrahmen" / „Hochglanz" / „Satin, Lichtfeld")
+  sind aus den Fotos abgelesen — kurz gegenlesen lassen. Auch, ob alle drei Räume
+  wirklich seine Arbeiten sind.
+* **Das Flurbild und das Zertifikat** gehören CILING. Vor dem Livegang einmal abnicken
+  lassen — oder das Flurbild gegen eine eigene Lichtdecke tauschen.
 * **Impressum:** Umsatzsteuer-ID (oder Kleinunternehmerregelung), Berufsbezeichnung und
   zuständige Handwerkskammer — im Entwurf markiert.
 * **Datenschutz:** Name und Anschrift des Hosters — ebenfalls markiert.
 * **WhatsApp:** Die Seite verlinkt `wa.me/491608058213`. Bestätigen, dass die Nummer
   WhatsApp nutzt — sonst den Link entfernen.
-* **Zertifikat:** Vor dem Livegang einmal bei CILING abnicken lassen.
 * `robots.txt` und die `noindex`-Angaben in allen drei HTML-Dateien entfernen, wenn die
   Seite gefunden werden soll.
 

@@ -10,7 +10,7 @@ quelle/
 muster/
 
 # lokale Vorschau
-pruef.html
+pruef*.html
 .claude/
 
 # Bilder, die nur die Musterentwürfe in muster/ brauchen

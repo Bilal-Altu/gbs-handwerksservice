@@ -6,10 +6,10 @@
 <title>GBS Handwerksservice — Spanndecken, Lichtdecken und Deckenheizung in Bürstadt</title>
 <meta name="description" content="Spanndecken, Lichtdecken und Infrarot-Deckenheizung vom CILING Exklusiv-Partner in Bürstadt. Montage an einem Tag, 10 Jahre Garantie, kostenloses Aufmaß — im Raum Mannheim, Worms, Bensheim und Heidelberg.">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#e3d8c8">
+<meta name="theme-color" content="#ffffff">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="preload" href="assets/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/geist-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/gbs.css">
 <script>
 /* Blendet erst aus, wenn JavaScript wirklich läuft — und holt alles zurück,
@@ -23,66 +23,86 @@
 </head>
 <body>
 
-<nav class="leiste" data-fest="nein" aria-label="Seitenleiste">
-  <div class="gitter klein">
-    <a class="wortmarke" href="#">G<i></i>B<i></i>S</a>
-    <div><a class="weg" href="#aufbau">Aufbau</a>, <a class="weg" href="#arbeiten">Ausgeführt</a></div>
-    <div><a class="weg" href="#leistungen">Leistungen</a>, <a class="weg" href="#fragen">Fragen</a></div>
-    <div><a class="weg" href="tel:+491608058213">0160 8058213</a></div>
-  </div>
-</nav>
+<!-- Muster für alle Zeichnungen, einmal für das ganze Blatt. -->
+<svg class="zeichnung versteckt" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="schraffur" width="9" height="9" patternUnits="userSpaceOnUse"
+             patternTransform="rotate(45)">
+      <line class="schraffur" x1="0" y1="0" x2="0" y2="9"/>
+    </pattern>
+    <pattern id="heiz" width="13" height="22" patternUnits="userSpaceOnUse">
+      <line class="heizstrich" x1="6.5" y1="0" x2="6.5" y2="22"/>
+    </pattern>
+  </defs>
+</svg>
 
-<!-- ============================================== Erster Schirm ======== -->
-<header class="schirm">
-  <picture>
-    <source type="image/avif" srcset="assets/img/vollbild-1200.avif 1200w, assets/img/vollbild-1920.avif 1920w" sizes="100vw">
-    <img src="assets/img/vollbild-1920.jpg"
-         srcset="assets/img/vollbild-1200.jpg 1200w, assets/img/vollbild-1920.jpg 1920w"
-         sizes="100vw" width="1920" height="1022" fetchpriority="high"
-         alt="Weiße Spanndecke mit einem eingelassenen, leuchtenden Lichtrahmen">
-  </picture>
-
-  <div class="schirm-inhalt">
-
-    <div class="gitter wege klein">
-      <a class="wortmarke" href="#">G<i></i>B<i></i>S<span class="nur-breit">&nbsp;Handwerksservice</span></a>
-      <div><a class="weg" href="#aufbau">Aufbau</a>, <a class="weg" href="#arbeiten">Ausgeführt</a></div>
-      <div><a class="weg" href="#leistungen">Leistungen</a>, <a class="weg" href="#fragen">Fragen</a></div>
-      <div><a class="weg" href="tel:+491608058213">0160 8058213</a></div>
-    </div>
-
-    <div></div>
-
-    <div class="gitter schirm-fuss">
-      <p class="versprechen">Eine neue Decke — <em>an einem Tag.</em></p>
-      <div class="schirm-zeile klein">
-        <span>Bürstadt, Rhein-Neckar</span>
-        <span>Küche mit Lichtrahmen, ausgeführt</span>
-        <a class="weg" href="#kontakt">Aufmaß kostenlos →</a>
-      </div>
-    </div>
-
+<header class="kopf">
+  <div class="kopf-innen">
+    <a class="marke" href="#"><span class="marke-kreis" aria-hidden="true"></span>GBS Handwerksservice</a>
+    <nav class="kopf-wege" aria-label="Seite">
+      <a class="weg" href="#aufbau">Aufbau</a>
+      <a class="weg" href="#leistungen">Leistungen</a>
+      <a class="weg" href="#arbeiten">Arbeiten</a>
+      <a class="weg" href="#fragen">Fragen</a>
+      <a class="fern" href="tel:+491608058213">0160 8058213</a>
+    </nav>
   </div>
 </header>
 
+<div class="blatt">
+
+<!-- ==================================================== Titeltafel ====== -->
+<section class="tafel titel">
+  <picture class="tafel-bild">
+    <source type="image/avif" srcset="assets/img/titel-1200.avif 1200w, assets/img/titel-1800.avif 1800w" sizes="100vw">
+    <img src="assets/img/titel-1800.jpg"
+         srcset="assets/img/titel-1200.jpg 1200w, assets/img/titel-1800.jpg 1800w"
+         sizes="100vw" width="1800" height="824" fetchpriority="high"
+         alt="Weiße Spanndecke in einer Küche mit einem eingelassenen, leuchtenden Lichtrahmen">
+  </picture>
+
+  <div class="zeile mono tafel-lage">
+    <span>Spanndecken · Lichtdecken · Deckenheizung</span>
+    <span>Bürstadt, Rhein-Neckar</span>
+  </div>
+
+  <div class="titel-text tafel-lage">
+    <h1>Eine neue Decke.<br>An einem Tag.</h1>
+    <p>Gespannt statt geklebt: kein Abschlagen, kein Spachteln, kein Streichen.
+       Die alte Decke bleibt, wo sie ist.</p>
+    <div class="knoepfe">
+      <a class="knopf knopf--voll" href="#kontakt">Aufmaß anfragen</a>
+      <a class="knopf" href="tel:+491608058213">0160 8058213</a>
+    </div>
+  </div>
+
+  <div class="zeile mono tafel-lage">
+    <span>Küche in Bürstadt, 2024</span>
+  </div>
+</section>
+
 <main>
 
-<!-- ==================================================== Der Aufbau ===== -->
-<section class="bahn" id="aufbau">
+<!-- ======================================================== Der Aufbau == -->
+<section class="tafel" id="aufbau">
+  <div class="zeile mono kopfzeile">
+    <span>01 — Der Aufbau</span>
+    <span>3–5 cm unter der alten Decke</span>
+  </div>
+
   <div class="gitter auf">
-    <p class="marginalie sp-marge">Der Aufbau</p>
-    <div class="sp-text">
-      <p>
-        Eine Spanndecke wird nicht auf die alte Decke geklebt, sondern ein paar
-        Zentimeter darunter gespannt. Es wird nichts abgeschlagen, gespachtelt
-        oder gestrichen.
-      </p>
-      <p class="nebentext">
-        Deshalb ist ein Bad oft in wenigen Stunden fertig und ein Wohnzimmer an
-        einem Tag. Und deshalb müssen Sie nichts ausräumen.
-      </p>
+    <div class="aussage sp-text">
+      <h2 class="gross">Sie wird gespannt,<br>nicht geklebt.</h2>
+      <p class="lauf">Rund um den Raum kommt eine Leiste an die Wand. Darin wird die
+        Decke eingehängt und mit Wärme auf das letzte Millimeterchen straff
+        gezogen. Die alte Decke bleibt darüber, wie sie ist — mit Rissen,
+        Flecken, Kabeln und allem.</p>
+      <p class="lauf grau">Deshalb ist ein Bad oft in wenigen Stunden fertig und ein
+        Wohnzimmer an einem Tag. Und deshalb müssen Sie nichts ausräumen: Möbel in
+        die Raummitte rücken und abdecken reicht meistens — das machen wir mit.</p>
     </div>
-    <ul class="werte sp-beiwerk">
+
+    <ul class="spur mono sp-neben" style="grid-template-columns:repeat(2,minmax(0,1fr))">
       <li><span>Montage je Raum</span><b>1 Tag</b></li>
       <li><span>Aufbauhöhe</span><b>3–5 cm</b></li>
       <li><span>Garantie</span><b>10 Jahre</b></li>
@@ -90,120 +110,135 @@
     </ul>
   </div>
 
-  <div class="gitter auf">
-    <figure class="sp-weit">
-      <svg class="zeichnung zeichnung--gross" viewBox="0 0 720 300" role="img"
-           aria-label="Schnitt durch den Deckenaufbau: unter der alten Decke ist eine Leiste an der Wand befestigt, in die die Spanndecke eingehängt wird. Der Abstand beträgt drei bis fünf Zentimeter.">
-        <defs>
-          <pattern id="schraffur" width="9" height="9" patternUnits="userSpaceOnUse"
-                   patternTransform="rotate(45)">
-            <line class="schraffur" x1="0" y1="0" x2="0" y2="9"/>
-          </pattern>
-          <pattern id="heiz" width="13" height="22" patternUnits="userSpaceOnUse">
-            <line class="heizstrich" x1="6.5" y1="0" x2="6.5" y2="22"/>
-          </pattern>
-        </defs>
+  <figure class="auf" style="margin-top:clamp(46px,8vh,110px)">
+    <svg class="zeichnung zeichnung--gross" viewBox="0 0 720 300" role="img"
+         aria-label="Schnitt durch den Deckenaufbau: unter der alten Decke ist eine Leiste an der Wand befestigt, in die die Spanndecke eingehängt wird. Der Abstand beträgt drei bis fünf Zentimeter.">
+      <rect x="0" y="0" width="720" height="44" fill="url(#schraffur)"/>
+      <line class="l" x1="0" y1="44" x2="720" y2="44"/>
+      <rect x="0" y="44" width="34" height="256" fill="url(#schraffur)"/>
+      <line class="l" x1="34" y1="44" x2="34" y2="300"/>
 
-        <rect x="0" y="0" width="720" height="44" fill="url(#schraffur)"/>
-        <line class="l" x1="0" y1="44" x2="720" y2="44"/>
-        <rect x="0" y="44" width="34" height="256" fill="url(#schraffur)"/>
-        <line class="l" x1="34" y1="44" x2="34" y2="300"/>
+      <rect class="l fl-feld" x="34" y="96" width="38" height="20"/>
+      <line class="l2" x1="72" y1="106" x2="704" y2="106"/>
 
-        <rect class="l fl-feld" x="34" y="96" width="38" height="20"/>
-        <line class="l2" x1="72" y1="106" x2="704" y2="106"/>
+      <line class="fein" x1="180" y1="44" x2="180" y2="106"/>
+      <path class="l" d="M176 50l4-6 4 6M176 100l4 6 4-6"/>
+      <text class="mass" x="194" y="81">3 – 5 cm</text>
 
-        <line class="fein" x1="180" y1="44" x2="180" y2="106"/>
-        <path class="l" d="M176 50l4-6 4 6M176 100l4 6 4-6"/>
-        <text class="mass" x="194" y="81">3 – 5 cm</text>
+      <path class="l fl-feld" d="M398 80h58l-7 26h-44z"/>
+      <line class="fein" x1="404" y1="112" x2="358" y2="238"/>
+      <line class="fein" x1="450" y1="112" x2="496" y2="238"/>
 
-        <path class="l fl-feld" d="M398 80h58l-7 26h-44z"/>
-        <line class="fein" x1="404" y1="112" x2="358" y2="238"/>
-        <line class="fein" x1="450" y1="112" x2="496" y2="238"/>
+      <rect class="fl-feld feld-lang" x="424" y="8" width="212" height="24"/>
+      <text x="428" y="26">Bestandsdecke, unberührt</text>
 
-        <rect class="fl-feld" x="424" y="8" width="206" height="24"/>
-        <text x="428" y="26">Bestandsdecke, unberührt</text>
+      <line class="fein" x1="58" y1="122" x2="58" y2="148"/>
+      <text x="36" y="168">Leiste</text>
 
-        <line class="fein" x1="58" y1="122" x2="58" y2="148"/>
-        <text x="36" y="168">Leiste</text>
+      <line class="fein" x1="624" y1="108" x2="624" y2="142"/>
+      <text x="566" y="162">Spanndecke</text>
 
-        <line class="fein" x1="624" y1="108" x2="624" y2="142"/>
-        <text x="566" y="162">Spanndecke</text>
-
-        <text x="386" y="266">Einbauspot</text>
-      </svg>
-      <figcaption>Schnitt an der Wand, ohne Maßstab</figcaption>
-    </figure>
-  </div>
+      <text x="386" y="266">Einbauspot</text>
+    </svg>
+    <figcaption>Schnitt an der Wand, ohne Maßstab</figcaption>
+  </figure>
 </section>
 
-<!-- ===================================================== Ausgeführt ==== -->
-<section class="bahn" id="arbeiten">
+<!-- =========================================================== Das Licht = -->
+<section class="tafel tafel--nacht" id="licht">
+  <div class="zeile mono kopfzeile">
+    <span>02 — Lichtdecke</span>
+    <span>Produktaufnahme CILING</span>
+  </div>
+
   <div class="gitter auf">
-    <p class="marginalie sp-marge">Ausgeführt</p>
-    <div class="sp-text">
-      <p>Zwei Räume aus der Nähe. Weitere zeigen wir beim Aufmaß.</p>
+    <div class="aussage sp-links">
+      <h2 class="gross">Licht, das keine<br>Lampe ist.</h2>
+      <p class="lauf">Die Leuchtmittel sitzen hinter der Folie. Zu sehen ist nur die
+        leuchtende Fläche — blendfrei, ohne harte Schatten und ohne etwas, das man
+        abstauben müsste.</p>
+      <p class="lauf grau">Als Rahmen um den Kochbereich, als ganzes Feld über dem
+        Flur, auf Wunsch in der Farbe verstellbar.</p>
+    </div>
+
+    <div class="sp-rechts bildfeld">
+        <picture class="randlos">
+        <source type="image/avif" srcset="assets/img/licht-900.avif 900w, assets/img/licht-1400.avif 1400w" sizes="(max-width: 980px) 94vw, 48vw">
+        <img src="assets/img/licht-1400.jpg"
+             srcset="assets/img/licht-900.jpg 900w, assets/img/licht-1400.jpg 1400w"
+             sizes="(max-width: 980px) 94vw, 48vw"
+             width="1400" height="732" loading="lazy"
+             alt="Dunkler Flur mit einer großen, gleichmäßig leuchtenden Lichtdecke">
+      </picture>
     </div>
   </div>
-
-  <div class="gitter auf">
-    <figure class="sp-bild-gr">
-      <picture>
-        <source type="image/avif" srcset="assets/img/decke-kueche-480.avif 480w, assets/img/decke-kueche-812.avif 812w" sizes="(max-width: 900px) calc(100vw - 64px), 60vw">
-        <img src="assets/img/decke-kueche-812.jpg"
-             srcset="assets/img/decke-kueche-480.jpg 480w, assets/img/decke-kueche-812.jpg 812w"
-             sizes="(max-width: 900px) calc(100vw - 64px), 60vw"
-             width="812" height="470" loading="lazy"
-             alt="Weiße Spanndecke in einer Küche mit eingelassenem, leuchtendem Lichtrahmen um den Dunstabzug">
-      </picture>
-      <figcaption>Küche · matt, Lichtrahmen mit LED</figcaption>
-    </figure>
-  </div>
-
-  <div class="gitter auf">
-    <figure class="sp-bild-kl">
-      <picture>
-        <source type="image/avif" srcset="assets/img/decke-bad-320.avif 320w, assets/img/decke-bad-442.avif 442w" sizes="(max-width: 900px) calc(68vw - 40px), 24vw">
-        <img src="assets/img/decke-bad-442.jpg"
-             srcset="assets/img/decke-bad-320.jpg 320w, assets/img/decke-bad-442.jpg 442w"
-             sizes="(max-width: 900px) calc(68vw - 40px), 24vw"
-             width="442" height="480" loading="lazy"
-             alt="Spiegelnde weiße Hochglanz-Spanndecke in einem Bad mit Einbauspots und einem LED-Streifen über dem Spiegelschrank">
-      </picture>
-      <figcaption>Bad · Hochglanz, Spots und Voute</figcaption>
-    </figure>
-  </div>
 </section>
 
-<!-- ===================================================== Leistungen ==== -->
-<section class="bahn" id="leistungen">
-  <div class="gitter auf">
-    <p class="marginalie sp-marge">Leistungen</p>
+<!-- ========================================================= Leistungen == -->
+<section class="tafel tafel--weiss" id="leistungen">
+  <div class="zeile mono kopfzeile">
+    <span>03 — Leistungen</span>
+    <span>Vier Sachen, richtig</span>
+  </div>
 
-    <ul class="leistungen sp-text">
-      <li>
-        <b>Spanndecke</b><br>
-        <span>Matt, satin oder hochglanz, auf den Millimeter nach Ihrem Raum
-        gefertigt. Wasserdicht, deshalb auch im Bad und in der Küche.</span>
-      </li>
-      <li>
-        <b>Lichtdecke</b><br>
-        <span>Die Leuchtmittel sitzen hinter der Folie. Sichtbar ist nur die
-        leuchtende Fläche, blendfrei und ohne eine Lampe, die man putzen müsste.</span>
-      </li>
-      <li>
-        <b>Deckenheizung</b><br>
-        <span>Eine Infrarot-Heizfolie über der Decke wärmt Wände, Möbel und
-        Menschen statt der Luft. Wartungsfrei, und keine Wandfläche belegt.</span>
-      </li>
-      <li>
-        <b>Innentüren</b><br>
-        <span>Türen von HUGA. Aufmaß, Zarge, Beschlag und Einbau aus einer Hand.</span>
-      </li>
-    </ul>
+  <div class="leistungen auf">
+    <div class="liste" id="liste" role="tablist" aria-label="Leistungen">
+      <button class="posten" type="button" role="tab" id="w-1" aria-controls="b-1" aria-selected="true">
+        <span class="posten-num" aria-hidden="true">01</span>
+        <span>
+          <b>Spanndecke</b>
+          <p>Matt, satin oder hochglanz, auf den Millimeter nach Ihrem Raum
+             gefertigt. Wasserdicht — deshalb auch im Bad und in der Küche.</p>
+        </span>
+      </button>
+      <button class="posten" type="button" role="tab" id="w-2" aria-controls="b-2" aria-selected="false">
+        <span class="posten-num" aria-hidden="true">02</span>
+        <span>
+          <b>Lichtdecke</b>
+          <p>LED hinter der Folie, gleichmäßig über die ganze Fläche. Sichtbar
+             bleibt nur das Licht.</p>
+        </span>
+      </button>
+      <button class="posten" type="button" role="tab" id="w-3" aria-controls="b-3" aria-selected="false">
+        <span class="posten-num" aria-hidden="true">03</span>
+        <span>
+          <b>Deckenheizung</b>
+          <p>Eine Infrarot-Heizfolie über der Decke wärmt Wände, Möbel und
+             Menschen statt der Luft. Wartungsfrei, und keine Wandfläche belegt.</p>
+        </span>
+      </button>
+      <button class="posten" type="button" role="tab" id="w-4" aria-controls="b-4" aria-selected="false">
+        <span class="posten-num" aria-hidden="true">04</span>
+        <span>
+          <b>Innentüren</b>
+          <p>Türen von HUGA. Aufmaß, Zarge, Beschlag und Einbau aus einer Hand.</p>
+        </span>
+      </button>
+    </div>
 
-    <div class="sp-beiwerk" style="display:grid;gap:clamp(26px,4vh,50px);align-content:start">
-      <figure>
-        <svg class="zeichnung zeichnung--klein" viewBox="0 0 400 260" role="img"
+    <div class="schau" id="schau">
+      <figure class="schau-blatt" id="b-1" role="tabpanel" aria-labelledby="w-1">
+        <svg class="zeichnung" viewBox="0 0 400 260" role="img"
+             aria-label="Schnitt durch eine Spanndecke: die Folie hängt in einer Leiste an der Wand, ein paar Zentimeter unter der alten Decke.">
+          <rect x="0" y="0" width="400" height="30" fill="url(#schraffur)"/>
+          <line class="l" x1="0" y1="30" x2="400" y2="30"/>
+          <rect x="0" y="30" width="24" height="230" fill="url(#schraffur)"/>
+          <line class="l" x1="24" y1="30" x2="24" y2="260"/>
+          <rect x="376" y="30" width="24" height="230" fill="url(#schraffur)"/>
+          <line class="l" x1="376" y1="30" x2="376" y2="260"/>
+          <rect class="l fl-feld" x="24" y="62" width="26" height="15"/>
+          <rect class="l fl-feld" x="350" y="62" width="26" height="15"/>
+          <line class="l2" x1="50" y1="70" x2="350" y2="70"/>
+          <line class="fein" x1="200" y1="30" x2="200" y2="70"/>
+          <path class="l" d="M196 36l4-6 4 6M196 64l4 6 4-6"/>
+          <text class="mass" x="212" y="56">3 – 5 cm</text>
+          <text x="42" y="112">Folie, 0,18 mm</text>
+        </svg>
+        <figcaption>Spanndecke, Schnitt an der Wand</figcaption>
+      </figure>
+
+      <figure class="schau-blatt" id="b-2" role="tabpanel" aria-labelledby="w-2">
+        <svg class="zeichnung" viewBox="0 0 400 260" role="img"
              aria-label="Schnitt durch eine Lichtdecke: hinter der lichtdurchlässigen Folie sitzen LED-Module, deren Licht gleichmäßig nach unten austritt.">
           <rect x="0" y="0" width="400" height="30" fill="url(#schraffur)"/>
           <line class="l" x1="0" y1="30" x2="400" y2="30"/>
@@ -233,8 +268,8 @@
         <figcaption>Lichtdecke, Schnitt</figcaption>
       </figure>
 
-      <figure>
-        <svg class="zeichnung zeichnung--klein" viewBox="0 0 400 260" role="img"
+      <figure class="schau-blatt" id="b-3" role="tabpanel" aria-labelledby="w-3">
+        <svg class="zeichnung" viewBox="0 0 400 260" role="img"
              aria-label="Schnitt durch eine Deckenheizung: über der Spanndecke liegt eine Heizfolie, deren Strahlungswärme gleichmäßig nach unten abgegeben wird.">
           <rect x="0" y="0" width="400" height="30" fill="url(#schraffur)"/>
           <line class="l" x1="0" y1="30" x2="400" y2="30"/>
@@ -257,56 +292,161 @@
         </svg>
         <figcaption>Deckenheizung, Schnitt</figcaption>
       </figure>
+
+      <figure class="schau-blatt" id="b-4" role="tabpanel" aria-labelledby="w-4">
+        <svg class="zeichnung" viewBox="0 0 400 260" role="img"
+             aria-label="Grundriss einer Innentür: in der Wandöffnung sitzt die Zarge, das Türblatt schwingt im Viertelkreis auf.">
+          <rect x="0" y="96" width="96" height="40" fill="url(#schraffur)"/>
+          <line class="l" x1="0" y1="96" x2="96" y2="96"/>
+          <line class="l" x1="0" y1="136" x2="96" y2="136"/>
+          <line class="l" x1="96" y1="96" x2="96" y2="136"/>
+          <rect x="330" y="96" width="70" height="40" fill="url(#schraffur)"/>
+          <line class="l" x1="330" y1="96" x2="400" y2="96"/>
+          <line class="l" x1="330" y1="136" x2="400" y2="136"/>
+          <line class="l" x1="330" y1="96" x2="330" y2="136"/>
+
+          <rect class="l fl-feld" x="96" y="92" width="14" height="48"/>
+          <rect class="l fl-feld" x="316" y="92" width="14" height="48"/>
+
+          <path class="fein" d="M110 116a206 206 0 0 1 206 -0" />
+          <rect class="l2 fl-feld" x="106" y="114" width="8" height="142"
+                transform="rotate(-38 110 116)"/>
+
+          <line class="fein" x1="110" y1="80" x2="316" y2="80"/>
+          <path class="l" d="M116 76l-6 4 6 4M310 76l6 4-6 4"/>
+          <text class="mass" x="176" y="66">Rohbaumaß</text>
+
+          <text x="96" y="176">Zarge</text>
+          <text x="196" y="232">Türblatt</text>
+        </svg>
+        <figcaption>Innentür, Grundriss</figcaption>
+      </figure>
     </div>
   </div>
 </section>
 
-<!-- ========================================================= Fragen ==== -->
-<section class="bahn" id="fragen">
-  <div class="gitter auf">
-    <p class="marginalie sp-marge">Fragen</p>
-    <div class="fragen sp-text">
+<!-- ========================================================== Ausgeführt = -->
+<section class="tafel tafel--weiss" id="arbeiten">
+  <div class="zeile mono kopfzeile">
+    <span>04 — Ausgeführt</span>
+    <span>Drei Räume</span>
+  </div>
+
+  <div class="paarung auf">
+    <figure class="werk" style="grid-column:1/9">
+      <div class="arbeit" style="aspect-ratio:1200/768">
+        <picture>
+          <source type="image/avif" srcset="assets/img/kueche-820.avif 820w, assets/img/kueche-1200.avif 1200w" sizes="(max-width: 980px) 94vw, 62vw">
+          <img src="assets/img/kueche-1200.jpg"
+               srcset="assets/img/kueche-820.jpg 820w, assets/img/kueche-1200.jpg 1200w"
+               sizes="(max-width: 980px) 94vw, 62vw"
+               width="1200" height="768" loading="lazy"
+               alt="Küche mit weißer Spanndecke, Kücheninsel und einem leuchtenden Lichtrahmen in der Decke">
+        </picture>
+      </div>
+      <div class="arbeit-daten mono">
+        <div><span>Raum</span>Küche, Bürstadt</div>
+        <div><span>Oberfläche</span>Matt, Lichtrahmen</div>
+        <div><span>Montage</span>1 Tag</div>
+      </div>
+    </figure>
+
+    <figure class="werk" style="grid-column:9/13">
+      <div class="arbeit" style="aspect-ratio:452/593">
+        <picture>
+          <source type="image/avif" srcset="assets/img/bad-640.avif 640w, assets/img/bad-900.avif 900w" sizes="(max-width: 980px) 94vw, 30vw">
+          <img src="assets/img/bad-900.jpg"
+               srcset="assets/img/bad-640.jpg 640w, assets/img/bad-900.jpg 900w"
+               sizes="(max-width: 980px) 94vw, 30vw"
+               width="900" height="934" loading="lazy"
+               alt="Bad mit spiegelnder Hochglanz-Spanndecke, Einbauspot und einem LED-Streifen über dem Spiegelschrank">
+        </picture>
+      </div>
+      <div class="arbeit-daten mono" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+        <div><span>Raum</span>Bad</div>
+        <div><span>Oberfläche</span>Hochglanz</div>
+      </div>
+    </figure>
+
+    <figure class="werk" style="grid-column:1/13">
+      <div class="arbeit" style="aspect-ratio:1400/498">
+        <picture>
+          <source type="image/avif" srcset="assets/img/holz-900.avif 900w, assets/img/holz-1400.avif 1400w" sizes="(max-width: 980px) 94vw, 92vw">
+          <img src="assets/img/holz-1400.jpg"
+               srcset="assets/img/holz-900.jpg 900w, assets/img/holz-1400.jpg 1400w"
+               sizes="(max-width: 980px) 94vw, 92vw"
+               width="1400" height="498" loading="lazy"
+               alt="Küche mit Holzarbeitsplatte und einem großen, leuchtenden Deckenfeld in der weißen Spanndecke">
+        </picture>
+      </div>
+      <div class="arbeit-daten mono">
+        <div><span>Raum</span>Küche mit Essplatz</div>
+        <div><span>Oberfläche</span>Satin, Lichtfeld</div>
+        <div><span>Montage</span>1 Tag</div>
+      </div>
+    </figure>
+  </div>
+
+  <p class="lauf grau fusszeile">Weitere Räume zeigen wir beim Aufmaß — auch solche,
+    bei denen vorher niemand geglaubt hat, dass da noch etwas zu retten war.</p>
+</section>
+
+<!-- ============================================================== Fragen = -->
+<section class="tafel" id="fragen">
+  <div class="zeile mono kopfzeile">
+    <span>05 — Fragen</span>
+    <span>Kurz beantwortet</span>
+  </div>
+
+  <div class="fragen auf">
+    <div class="frage">
+      <span class="frage-num mono" aria-hidden="true">01</span>
       <div>
         <h3>Muss ich ausräumen?</h3>
         <p>Nein. Möbel in die Raummitte rücken und abdecken reicht meistens, und
-        das machen wir mit.</p>
+           das machen wir mit.</p>
       </div>
+    </div>
+    <div class="frage">
+      <span class="frage-num mono" aria-hidden="true">02</span>
       <div>
         <h3>Wie schmutzig wird es?</h3>
         <p>Es entsteht Bohrstaub, wenn die Leisten gesetzt werden; der wird direkt
-        abgesaugt. Abschlagen, Spachteln und Streichen entfallen ganz.</p>
+           abgesaugt. Abschlagen, Spachteln und Streichen entfallen ganz.</p>
       </div>
+    </div>
+    <div class="frage">
+      <span class="frage-num mono" aria-hidden="true">03</span>
       <div>
         <h3>Wie viel Raumhöhe kostet das?</h3>
         <p>Üblich sind drei bis fünf Zentimeter. Wo es knapp ist, bekommen wir es
-        enger hin. Eine Hochglanzdecke gibt optisch Höhe zurück.</p>
+           enger hin. Eine Hochglanzdecke gibt optisch Höhe zurück.</p>
       </div>
+    </div>
+    <div class="frage">
+      <span class="frage-num mono" aria-hidden="true">04</span>
       <div>
         <h3>Was kostet eine Spanndecke?</h3>
         <p>Das hängt von Fläche, Zuschnitt, Oberfläche und Licht ab. Das Aufmaß
-        vor Ort kostet nichts, danach steht ein fester Preis.</p>
+           vor Ort kostet nichts, danach steht ein fester Preis.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ======================================================== Kontakt ==== -->
-<section class="bahn" id="kontakt">
+<!-- ============================================================= Kontakt = -->
+<section class="tafel tafel--nacht" id="kontakt">
+  <div class="zeile mono kopfzeile">
+    <span>06 — Aufmaß</span>
+    <span>Kostenlos und unverbindlich</span>
+  </div>
+
   <div class="gitter auf">
-    <p class="marginalie sp-marge">Aufmaß</p>
-
     <div class="sp-text">
-      <p>
-        Sagen Sie uns, um welchen Raum es geht. Wir schauen ihn uns an, messen auf
-        und Sie bekommen einen festen Preis — ohne dass Sie sich zu etwas
-        verpflichten.
-      </p>
-
-      <ul class="wege-kontakt">
-        <li><span>Telefon</span><a href="tel:+491608058213">0160 8058213</a></li>
-        <li><span>WhatsApp</span><a href="https://wa.me/491608058213" rel="noopener">Foto schicken</a></li>
-        <li><span>E-Mail</span><a href="mailto:christian-klein@gbs-handwerksservice.de">christian-klein@gbs-handwerksservice.de</a></li>
-      </ul>
+      <h2 class="gross">Wir kommen vorbei<br>und messen auf.</h2>
+      <p class="lauf" style="margin-top:16px">Sagen Sie uns, um welchen Raum es geht.
+        Wir schauen ihn uns an, messen auf, und Sie bekommen einen festen Preis —
+        ohne dass Sie sich zu etwas verpflichten.</p>
 
       <form class="bogen" id="anfrage">
         <div class="paar">
@@ -333,7 +473,7 @@
           <span>Zustand der jetzigen Decke</span>
           <textarea name="nachricht" placeholder="Risse, Wasserflecken, alte Holzdecke, zu dunkel …"></textarea>
         </label>
-        <button class="senden" type="submit">Anfrage abschicken</button>
+        <button class="knopf knopf--voll senden" type="submit">Anfrage abschicken</button>
         <p class="bogen-fuss">
           Die Angaben gehen ausschließlich an GBS Handwerksservice. Mehr dazu in der
           <a href="datenschutz.html">Datenschutzerklärung</a>.
@@ -341,32 +481,33 @@
 
         <div class="rueckmeldung" id="rueckmeldung" hidden>
           <p><b>Fast geschafft.</b> Ihr E-Mail-Programm wurde mit der fertigen
-          Anfrage geöffnet — dort nur noch auf Senden drücken. Falls sich nichts
-          getan hat, kopieren Sie den Text und schicken ihn an
-          christian-klein@gbs-handwerksservice.de oder rufen Sie an.</p>
+             Anfrage geöffnet — dort nur noch auf Senden drücken. Falls sich nichts
+             getan hat, kopieren Sie den Text und schicken ihn an
+             christian-klein@gbs-handwerksservice.de oder rufen Sie an.</p>
           <textarea id="entwurf" readonly aria-label="Ihre Anfrage als Text"></textarea>
-          <button type="button" id="kopieren">Text kopieren</button>
+          <button class="knopf" type="button" id="kopieren">Text kopieren</button>
         </div>
       </form>
     </div>
 
-    <div class="sp-beiwerk">
-      <address class="anschrift">
+    <div class="sp-neben">
+      <ul class="kontaktwege mono">
+        <li><span>Telefon</span><a href="tel:+491608058213">0160 8058213</a></li>
+        <li><span>WhatsApp</span><a href="https://wa.me/491608058213" rel="noopener">Foto schicken</a></li>
+        <li><span>E-Mail</span><a href="mailto:christian-klein@gbs-handwerksservice.de">Schreiben</a></li>
+      </ul>
+
+      <address class="lauf" style="margin-top:26px">
         GBS Handwerksservice<br>
         Christian Klein<br>
         In der Hainlache 33<br>
         68642 Bürstadt
       </address>
 
-      <p class="gebiet">
-        Von Bürstadt aus in Lampertheim, Worms, Osthofen, Bensheim, Heppenheim,
-        Mannheim, Heidelberg, Darmstadt und Mainz — und in den Orten dazwischen.
-      </p>
-
-      <figure style="margin-top:clamp(30px,5vh,56px)">
+      <figure style="margin-top:30px">
         <picture>
           <source type="image/avif" srcset="assets/img/zertifikat-300.avif">
-          <img src="assets/img/zertifikat-300.jpg" width="300" height="413" loading="lazy"
+          <img class="urkunde" src="assets/img/zertifikat-300.jpg" width="300" height="414" loading="lazy"
                alt="Zertifikat: GBS Handwerksservice ist CILING Exklusiv-Partner, ausgestellt im Januar 2024">
         </picture>
         <figcaption>CILING Exklusiv-Partner</figcaption>
@@ -377,15 +518,23 @@
 
 </main>
 
-<footer class="fuss klein">
-  <div class="gitter">
-    <span class="links">© 2026 GBS Handwerksservice · Christian Klein</span>
-    <span class="rechts">
-      <a class="weg" href="impressum.html">Impressum</a>
-      <a class="weg" href="datenschutz.html">Datenschutz</a>
+<footer class="fuss">
+  <p class="fuss-gross">Handarbeit aus&nbsp;Bürstadt.</p>
+  <p class="lauf grau" style="margin-top:20px">Von Bürstadt aus in Lampertheim, Worms,
+    Osthofen, Bensheim, Heppenheim, Mannheim, Heidelberg, Darmstadt und Mainz —
+    und in den Orten dazwischen.</p>
+
+  <div class="fuss-zeile mono">
+    <span>© 2026 GBS Handwerksservice · Christian Klein</span>
+    <span class="fuss-wege">
+      <a href="tel:+491608058213">0160 8058213</a>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
     </span>
   </div>
 </footer>
+
+</div><!-- /blatt -->
 
 <script type="application/ld+json">
 {

@@ -1,28 +1,23 @@
 /* =============================================================================
    GBS Handwerksservice
-   1. Leiste erscheint nach dem ersten Schirm
+   1. Haarlinie unter dem Kopf, sobald man scrollt
    2. Einblenden beim Scrollen
-   3. Anfrageformular (baut eine E-Mail, kein Server)
+   3. Leistungen: vier Reiter, eine Zeichnung
+   4. Anfrageformular (baut eine E-Mail, kein Server)
    ========================================================================== */
 (function () {
   "use strict";
 
   var sparsam = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ------------------------------------------------------- 1. Leiste --- */
-  var leiste = document.querySelector(".leiste");
-  var schirm = document.querySelector(".schirm");
-
+  /* --------------------------------------------------------- 1. Kopf --- */
+  var kopf = document.querySelector(".kopf");
   function beimScrollen() {
-    if (!leiste) { return; }
-    /* Ohne ersten Schirm — also auf Impressum und Datenschutz — steht die
-       Leiste von Anfang an. */
-    if (!schirm) { leiste.setAttribute("data-fest", "ja"); return; }
+    if (!kopf) { return; }
     var y = window.scrollY || window.pageYOffset;
-    leiste.setAttribute("data-fest", y > schirm.offsetHeight - 80 ? "ja" : "nein");
+    kopf.setAttribute("data-ab", y > 8 ? "ja" : "nein");
   }
   window.addEventListener("scroll", beimScrollen, { passive: true });
-  window.addEventListener("resize", beimScrollen);
   beimScrollen();
 
   /* --------------------------------------------------- 2. Einblenden --- */
@@ -42,9 +37,53 @@
       });
     }, { rootMargin: "0px 0px -8% 0px", threshold: 0.05 });
     Array.prototype.forEach.call(bloecke, function (el) { beobachter.observe(el); });
+
+    /* Lädt die Seite in einem verborgenen Tab, meldet sich der Beobachter
+       nicht. Dann wird nachgeholt, was ohnehin im Bild steht. */
+    var nachhelfen = function () {
+      Array.prototype.forEach.call(bloecke, function (el) {
+        if (el.getBoundingClientRect().top < window.innerHeight) {
+          el.setAttribute("data-da", "ja");
+        }
+      });
+    };
+    window.setTimeout(nachhelfen, 1400);
+    document.addEventListener("visibilitychange", nachhelfen);
   }
 
-  /* ----------------------------------------------------- 3. Formular --- */
+  /* ---------------------------------------------------- 3. Leistungen --- */
+  /* Ohne JavaScript stehen alle vier Zeichnungen untereinander — erst hier
+     wird daraus ein Satz Reiter. */
+  var liste = document.getElementById("liste");
+  if (liste) {
+    var reiter  = [].slice.call(liste.querySelectorAll('[role="tab"]'));
+    var blaetter = [].slice.call(document.querySelectorAll(".schau-blatt"));
+
+    var zeigen = function (i, fokus) {
+      reiter.forEach(function (r, n) {
+        r.setAttribute("aria-selected", n === i ? "true" : "false");
+        r.tabIndex = n === i ? 0 : -1;
+      });
+      blaetter.forEach(function (b, n) { b.hidden = n !== i; });
+      if (fokus) { reiter[i].focus(); }
+    };
+
+    reiter.forEach(function (r, i) {
+      r.addEventListener("click", function () { zeigen(i); });
+      r.addEventListener("keydown", function (e) {
+        var n = null;
+        if (e.key === "ArrowDown" || e.key === "ArrowRight") { n = (i + 1) % reiter.length; }
+        if (e.key === "ArrowUp"   || e.key === "ArrowLeft")  { n = (i - 1 + reiter.length) % reiter.length; }
+        if (e.key === "Home") { n = 0; }
+        if (e.key === "End")  { n = reiter.length - 1; }
+        if (n !== null) { e.preventDefault(); zeigen(n, true); }
+      });
+    });
+
+    zeigen(0);
+  }
+
+  /* ----------------------------------------------------- 4. Formular --- */
   var formular = document.getElementById("anfrage");
   if (!formular) { return; }
 

@@ -1,30 +1,14 @@
 @charset "utf-8";
 /* ==========================================================================
    GBS Handwerksservice
-   Sprache nach dem Vorbild von studiograpa.com: ein durchgehendes warmes
-   Farbfeld, winzige Navigation, Lauftext in großer Serifenschrift.
+   Sprache nach dem Vorbild von genesis.ai: weißes Blatt, darauf große
+   Tafeln mit runden Ecken; in jeder Tafelecke winzige Maschinenschrift und
+   feine Striche wie auf einem Messgerät. Die Bilder sind fast entfärbt.
 
-   Alles steht auf EINEM Zwölferraster — Navigation, Text, Bilder,
-   Zeichnungen und Formular teilen sich dieselben senkrechten Linien.
+   Alles steht auf EINEM Zwölferraster.
    ========================================================================== */
 
 /* ------------------------------------------------------------ Schriften -- */
-@font-face {
-  font-family: "Newsreader";
-  font-style: normal; font-weight: 400; font-display: swap;
-  src: url("../fonts/newsreader-latin.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
-    U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: "Newsreader";
-  font-style: italic; font-weight: 400; font-display: swap;
-  src: url("../fonts/newsreader-kursiv-latin.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
-    U+2212, U+2215, U+FEFF, U+FFFD;
-}
 @font-face {
   font-family: "Instrument Sans";
   font-style: normal; font-weight: 400 700; font-display: swap;
@@ -41,341 +25,507 @@
     U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
     U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
+@font-face {
+  font-family: "Geist Mono";
+  font-style: normal; font-weight: 500; font-display: swap;
+  src: url("../fonts/geist-mono-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
 /* --------------------------------------------------------------- Farben -- */
 :root {
-  --feld:    #e3d8c8;
-  --tusche:  #14120f;   /* 13,2:1 auf dem Feld */
-  --grau:    #5a5346;   /* 5,4:1 */
-  --grau-2:  #7a7161;   /* nur große Schrift und Marken, 3,3:1 */
-  --linie:   #c6b9a4;
-  --violett: #511972;
+  --papier:  #ffffff;
+  --feld:    #f1f2f1;   /* Tafel auf dem Blatt */
+  --feld-2:  #e5e7e6;   /* Knöpfe, Marken */
+  --tinte:   #111417;   /* 18,6:1 auf Weiß */
+  --grau:    #656a6e;   /* 5,4:1 auf Weiß, 4,9:1 auf der Tafel */
+  --linie:   #dde2e4;
+  --nacht:   #14171a;   /* dunkle Tafel */
+  --nacht-2: #23282c;
+  --hellgrau:#9aa0a3;   /* nur auf der dunklen Tafel, 6,8:1 */
 
-  --serif: "Newsreader", "Times New Roman", Times, serif;
-  --sans:  "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --strich:  var(--linie);          /* Farbe der Messstriche */
+  --tafel-grund: var(--feld);
 
-  --rand:   32px;
-  --breite: 1400px;
-  --spalt:  clamp(16px, 1.8vw, 30px);   /* Spaltenabstand im Raster */
-  --luft:   clamp(110px, 16vh, 210px);  /* Abstand zwischen den Bahnen */
+  --sans: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "Geist Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+
+  --rand:  clamp(8px, 2.2vw, 30px);    /* Blattrand */
+  --pad:   clamp(15px, 1.6vw, 22px);   /* Tafelrand innen */
+  --tick:  clamp(8px, 0.9vw, 12px);    /* Abstand der Messstriche zum Rand */
+  --spalt: clamp(12px, 1.4vw, 22px);   /* Spaltenabstand im Raster */
+  --r:     16px;
+  --luft:  clamp(10px, 1.1vw, 14px);   /* Abstand zwischen den Tafeln */
+  --kopfhoch: 60px;
 }
-@media (max-width: 760px) { :root { --rand: 20px; } }
 
-/* ---------------------------------------------------------- Grundlagen -- */
+/* ----------------------------------------------------------- Grundlagen -- */
 *, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after {
-    animation-duration: .001ms !important; transition-duration: .001ms !important;
-  }
-}
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 body {
   margin: 0;
-  background: var(--feld);
-  color: var(--tusche);
-  font-family: var(--serif);
-  font-size: clamp(20px, 1.75vw, 26px);
-  line-height: 1.36;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-
-p { margin: 0 0 .8em; }
-p:last-child { margin-bottom: 0; }
-img { max-width: 100%; height: auto; display: block; }
-picture { display: block; }
-a { color: inherit; }
-h1, h2, h3 { margin: 0; font-weight: 400; font-size: inherit; line-height: inherit; }
-em { font-style: italic; }
-
-.nur-fuer-screenreader {
-  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-  overflow: hidden; clip-path: inset(50%); white-space: nowrap;
-}
-:where(a, button, input, textarea, [tabindex]):focus-visible {
-  outline: 2px solid var(--violett); outline-offset: 4px;
-}
-
-/* ------------------------------------------------------------ Kleinzeug -- */
-.klein {
+  background: var(--papier);
+  color: var(--tinte);
   font-family: var(--sans);
-  font-size: 12.5px; font-weight: 500; line-height: 1.5;
-  letter-spacing: .11em; text-transform: uppercase;
+  font-size: 15px;
+  line-height: 1.34;
+  letter-spacing: -0.02em;
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
 }
-.klein a, a.weg { text-decoration: none; }
 
-/* Links tragen keinen Unterstrich — erst beim Zeigen */
-a.weg {
-  border-bottom: 1px solid transparent; padding-bottom: 2px;
-  transition: border-color .2s ease;
+img, svg, picture { display: block; max-width: 100%; }
+a { color: inherit; }
+
+h1, h2, h3, p, ul, ol, figure, blockquote { margin: 0; }
+ul { padding: 0; list-style: none; }
+
+:focus-visible {
+  outline: 2px solid var(--tinte);
+  outline-offset: 3px;
+  border-radius: 3px;
 }
-a.weg:hover { border-bottom-color: currentColor; }
 
-.wortmarke {
-  display: inline-flex; align-items: center; gap: 4px;
-  font-family: var(--sans); font-weight: 600; font-size: 12.5px;
-  letter-spacing: .14em; text-transform: uppercase; text-decoration: none;
-  white-space: nowrap;
+.versteckt {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
 }
-.wortmarke i { width: 4px; height: 4px; background: currentColor; display: block; }
 
-/* ============================================================== Raster == */
-.gitter {
-  width: min(var(--breite), 100% - 2 * var(--rand));
+/* ------------------------------------------------------------- Schriften-- */
+/* Maschinenschrift: alle winzigen Angaben, Marken, Zahlen, Knöpfe. */
+.mono {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+.gross {                       /* die Aussage einer Tafel */
+  font-size: clamp(26px, 2.9vw, 40px);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+.lauf {                        /* Fließtext unter einer Aussage */
+  font-size: clamp(15px, 1.15vw, 17px);
+  line-height: 1.38;
+  letter-spacing: -0.024em;
+  max-width: 46ch;
+}
+
+.grau { color: var(--grau); }
+
+/* ---------------------------------------------------------------- Blatt -- */
+.blatt {
+  max-width: 1840px;
   margin-inline: auto;
+  padding-inline: var(--rand);
+  padding-bottom: var(--rand);
+}
+
+/* ---------------------------------------------------------------- Tafel -- */
+.tafel {
+  position: relative;
+  isolation: isolate;
+  border-radius: var(--r);
+  background: var(--tafel-grund);
+  padding: var(--pad);
+  margin-bottom: var(--luft);
+  overflow: hidden;
+}
+.tafel:last-child { margin-bottom: 0; }
+
+/* Messstriche oben und unten, wie die Skala eines Geräts. */
+.tafel::before,
+.tafel::after {
+  content: "";
+  position: absolute;
+  left: var(--tick); right: var(--tick);
+  height: 1px;
+  z-index: 3;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    to right, var(--strich) 0 14px, transparent 14px 168px);
+}
+.tafel::before { top: var(--tick); }
+.tafel::after  { bottom: var(--tick); }
+
+.tafel--weiss { --tafel-grund: var(--papier); padding-inline: 0; }
+.tafel--weiss::before, .tafel--weiss::after { left: 0; right: 0; }
+
+.tafel--nacht {
+  --tafel-grund: var(--nacht);
+  --strich: rgba(255, 255, 255, 0.22);
+  --linie:  rgba(255, 255, 255, 0.16);
+  --grau:   var(--hellgrau);
+  --feld-2: rgba(255, 255, 255, 0.10);
+  color: #fff;
+}
+
+/* Bild, das die ganze Tafel füllt. */
+.tafel-bild {
+  position: absolute; inset: 0; z-index: 0;
+}
+.tafel-bild img { width: 100%; height: 100%; object-fit: cover; }
+
+.tafel-lage { position: relative; z-index: 2; }
+
+/* Beschriftungszeile in einer Tafelecke: links Sache, rechts Wert. */
+.zeile {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spalt);
+  align-items: baseline;
+}
+.zeile > :last-child { text-align: right; }
+
+/* ---------------------------------------------------------------- Kopf --- */
+.kopf {
+  position: sticky; top: 0; z-index: 40;
+  background: var(--papier);
+  padding: 0 var(--rand);
+  max-width: 1840px;
+  margin-inline: auto;
+}
+.kopf-innen {
+  height: var(--kopfhoch);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--spalt);
+}
+.marke {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-size: 15px; letter-spacing: -0.03em;
+  text-decoration: none;
+}
+.marke-kreis {
+  width: 15px; height: 15px; border-radius: 50%;
+  border: 1.5px solid var(--tinte);
+  flex: none;
+}
+.kopf-wege { display: flex; align-items: center; gap: clamp(14px, 1.6vw, 26px); }
+.kopf-wege a { color: var(--grau); text-decoration: none; }
+.kopf-wege a:hover { color: var(--tinte); }
+.kopf-wege .fern { color: var(--tinte); }
+
+/* Knöpfe ---------------------------------------------------------------- */
+.knopf {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 11px;
+  border: 0; border-radius: 6px;
+  background: var(--feld-2);
+  color: var(--tinte);
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+.knopf:hover { background: var(--tinte); color: var(--papier); }
+.knopf--voll { background: var(--tinte); color: var(--papier); }
+.knopf--voll:hover { background: var(--nacht-2); color: var(--papier); }
+.tafel--nacht .knopf { background: rgba(255,255,255,0.12); color: #fff; }
+.tafel--nacht .knopf:hover { background: #fff; color: var(--tinte); }
+.tafel--nacht .knopf--voll { background: #fff; color: var(--tinte); }
+.tafel--nacht .knopf--voll:hover { background: var(--hellgrau); }
+
+.knoepfe { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* =============================================================== Titel === */
+.titel {
+  min-height: 500px;
+  height: calc(100svh - var(--kopfhoch) - var(--rand) - var(--luft));
+  max-height: 880px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  color: var(--tinte);
+}
+.titel .tafel-bild img { object-position: 50% 50%; }
+
+.titel-text { align-self: end; max-width: 30em; padding-block: 18px 34px; }
+.titel h1 {
+  font-size: clamp(32px, 4.6vw, 62px);
+  font-weight: 400; line-height: 0.99; letter-spacing: -0.048em;
+  text-wrap: balance;
+}
+.titel-text p {
+  margin-top: 14px; max-width: 30ch;
+  font-size: clamp(15px, 1.2vw, 17px); line-height: 1.34; letter-spacing: -0.024em;
+}
+.titel .knoepfe { margin-top: 20px; }
+
+/* =========================================================== Zwölferraster */
+.gitter {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: var(--spalt);
 }
-@media (max-width: 900px) {
-  .gitter { grid-template-columns: minmax(0, 1fr); row-gap: 22px; }
-  .gitter > * { grid-column: 1 !important; }
-}
+.gitter > * { min-width: 0; }
 
-/* feste Plätze im Raster */
-.sp-marge   { grid-column: 1 / 3; }
-.sp-text    { grid-column: 3 / 9; }
-.sp-beiwerk { grid-column: 10 / 13; }
-.sp-weit    { grid-column: 3 / 13; }
-.sp-bild-gr { grid-column: 6 / 13; }
-.sp-bild-kl { grid-column: 3 / 6; }
+.sp-links  { grid-column: 1 / 6; }
+.sp-rechts { grid-column: 7 / 13; }
+.sp-halb   { grid-column: 1 / 7; }
+.sp-voll   { grid-column: 1 / 13; }
+.sp-text   { grid-column: 1 / 7; }
+.sp-neben  { grid-column: 8 / 13; }
 
-/* ======================================================= Erster Schirm == */
-.schirm {
-  position: relative; height: 100svh; min-height: 540px; overflow: hidden;
-  background: var(--feld); color: var(--tusche);
-}
-.schirm > picture, .schirm > picture img {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; object-position: 50% 50%;
-}
-.schirm-inhalt {
-  position: relative; z-index: 2; height: 100%;
-  padding-block: var(--rand);
-  display: grid; grid-template-rows: auto 1fr auto;
-}
+/* ============================================================== Abschnitt */
+/* Eine Tafel mit Aussage: Kopfzeile, Aussage, Text, darunter der Inhalt. */
+.kopfzeile { margin-bottom: clamp(40px, 8vh, 96px); }
+.aussage   { display: grid; gap: 16px; }
+.fusszeile { margin-top: clamp(30px, 5vh, 58px); }
 
-.wege { align-items: baseline; }
-.wege > *:nth-child(1) { grid-column: 1 / 4; }
-.wege > *:nth-child(2) { grid-column: 4 / 7; }
-.wege > *:nth-child(3) { grid-column: 7 / 10; }
-.wege > *:nth-child(4) { grid-column: 10 / 13; text-align: right; }
-@media (max-width: 900px) {
-  .wege { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
-  .wege > *:nth-child(2), .wege > *:nth-child(3) { display: none; }
+.spur {                       /* Reihe aus Messwerten */
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--linie);
+  border-block: 1px solid var(--linie);
 }
+.spur li {
+  background: var(--tafel-grund);
+  padding: 12px 0 13px;
+  display: grid; gap: 5px;
+}
+.spur b { font-weight: 400; font-size: clamp(17px, 1.5vw, 21px); letter-spacing: -0.04em; }
+.spur span { color: var(--grau); }
 
-.schirm-fuss { align-items: end; }
-.versprechen {
-  grid-column: 3 / 10;
-  font-size: clamp(26px, 2.8vw, 40px); line-height: 1.12; margin: 0;
-}
-.versprechen em { font-style: italic; }
-.schirm-zeile {
-  grid-column: 3 / 13; margin-top: 18px;
-  display: flex; flex-wrap: wrap; gap: 8px 36px;
-}
-@media (max-width: 900px) {
-  .versprechen, .schirm-zeile { grid-column: 1; }
-  .schirm-zeile { flex-direction: column; gap: 8px; }
-}
-
-/* ============================================================== Bahnen == */
-.bahn { padding-block: var(--luft); }
-.bahn:first-of-type { padding-top: clamp(90px, 13vh, 165px); }
-.bahn > .gitter + .gitter { margin-top: clamp(50px, 8vh, 110px); }
-
-.marginalie {
-  font-family: var(--sans); font-size: 12.5px; font-weight: 500;
-  letter-spacing: .11em; text-transform: uppercase; color: var(--grau);
-  padding-top: .6em;
-}
-@media (max-width: 900px) { .marginalie { padding-top: 0; } }
-.nebentext { color: var(--grau); }
-
-/* Kennwerte */
-.werte { margin: 0; padding: 0; list-style: none; font-family: var(--sans); }
-.werte li {
-  display: flex; justify-content: space-between; gap: 14px;
-  padding: 7px 0; border-bottom: 1px solid var(--linie);
-  font-size: 12.5px; line-height: 1.4; color: var(--grau);
-}
-.werte li:first-child { border-top: 1px solid var(--linie); }
-.werte b { font-weight: 600; color: var(--tusche); text-align: right; }
-
-/* --------------------------------------------------------------- Bilder -- */
-figure { margin: 0; }
-figcaption {
-  margin-top: 12px;
-  font-family: var(--sans); font-size: 12px; font-weight: 500;
-  letter-spacing: .11em; text-transform: uppercase; color: var(--grau-2);
-}
-.sp-bild-gr img, .sp-bild-kl img { width: 100%; }
-.sp-bild-gr { margin-right: calc(-1 * var(--rand)); }
-.bild-tief { margin-top: clamp(40px, 7vh, 100px); }
-@media (max-width: 900px) {
-  .sp-bild-gr { margin-right: 0; }
-  .sp-bild-kl { max-width: 68%; }
-}
-
-/* ---------------------------------------------------------- Leistungen -- */
-.leistungen { margin: 0; padding: 0; list-style: none; }
-.leistungen li { padding: 16px 0; border-bottom: 1px solid var(--linie); }
-.leistungen li:first-child { border-top: 1px solid var(--linie); }
-.leistungen b { font-weight: 400; }
-.leistungen span { color: var(--grau); }
-
-/* -------------------------------------------------------------- Fragen -- */
-.fragen > div { padding: 20px 0; border-bottom: 1px solid var(--linie); }
-.fragen > div:first-child { border-top: 1px solid var(--linie); }
-.fragen p { margin: .25em 0 0; color: var(--grau); }
-
-/* ------------------------------------------------------------- Kontakt -- */
-.anschrift {
-  font-style: normal; font-family: var(--sans); font-size: 13.5px; line-height: 1.75;
-  color: var(--grau);
-}
-.gebiet {
-  margin-top: 22px; font-family: var(--sans); font-size: 13.5px; line-height: 1.7;
-  color: var(--grau);
-}
-.wege-kontakt { margin: 24px 0 0; padding: 0; list-style: none; font-family: var(--sans); }
-.wege-kontakt li {
-  display: flex; justify-content: space-between; gap: 14px;
-  padding: 10px 0; border-bottom: 1px solid var(--linie); font-size: 13.5px;
-}
-.wege-kontakt li:first-child { border-top: 1px solid var(--linie); }
-.wege-kontakt span {
-  color: var(--grau); letter-spacing: .1em; text-transform: uppercase; font-size: 12px;
-}
-.wege-kontakt a { text-decoration: none; font-weight: 600; overflow-wrap: anywhere; }
-.wege-kontakt a:hover { color: var(--violett); }
-
-form.bogen { margin-top: clamp(30px, 5vh, 56px); }
-.paar { display: grid; gap: 0 var(--spalt); grid-template-columns: 1fr 1fr; }
-@media (max-width: 620px) { .paar { grid-template-columns: 1fr; } }
-.eingabe { display: block; margin-bottom: 24px; }
-.eingabe > span {
-  display: block; margin-bottom: 7px;
-  font-family: var(--sans); font-size: 11.5px; font-weight: 500;
-  letter-spacing: .12em; text-transform: uppercase; color: var(--grau);
-}
-.eingabe input, .eingabe textarea {
-  width: 100%; padding: 4px 0 10px;
-  font-family: var(--serif); font-size: 20px; line-height: 1.35; color: var(--tusche);
-  background: transparent; border: 0; border-bottom: 1px solid var(--linie);
-  border-radius: 0;
-}
-.eingabe textarea { min-height: 76px; resize: vertical; }
-.eingabe input:focus, .eingabe textarea:focus { border-bottom-color: var(--tusche); outline: none; }
-.eingabe input::placeholder, .eingabe textarea::placeholder { color: var(--grau-2); }
-
-button.senden {
-  font-family: var(--sans); font-size: 12.5px; font-weight: 600;
-  letter-spacing: .12em; text-transform: uppercase;
-  padding: 15px 30px; border: 1px solid var(--tusche); border-radius: 0;
-  background: var(--tusche); color: var(--feld); cursor: pointer;
-  transition: background-color .2s ease, border-color .2s ease;
-}
-button.senden:hover { background: var(--violett); border-color: var(--violett); }
-.bogen-fuss {
-  margin: 16px 0 0; font-family: var(--sans); font-size: 12.5px; line-height: 1.6;
-  color: var(--grau); max-width: 46ch;
-}
-.bogen-fuss a { color: var(--tusche); }
-
-.rueckmeldung { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--tusche); }
-.rueckmeldung p { font-family: var(--sans); font-size: 13.5px; line-height: 1.6; color: var(--grau); }
-.rueckmeldung textarea {
-  width: 100%; min-height: 130px; margin: 14px 0; padding: 12px;
-  font-family: var(--sans); font-size: 13px; line-height: 1.55; color: var(--tusche);
-  background: rgba(255,255,255,.4); border: 1px solid var(--linie); border-radius: 0;
-}
-.rueckmeldung button {
-  font-family: var(--sans); font-size: 12px; font-weight: 600;
-  letter-spacing: .12em; text-transform: uppercase;
-  padding: 11px 20px; border: 1px solid var(--tusche); background: transparent;
-  color: var(--tusche); cursor: pointer;
-}
-
-/* ================================================================ Fuß === */
-.fuss { padding: 26px 0 34px; }
-.fuss .gitter { border-top: 1px solid var(--linie); padding-top: 24px; }
-.fuss .links  { grid-column: 1 / 7; }
-.fuss .rechts { grid-column: 10 / 13; text-align: right; }
-.fuss a { text-decoration: none; }
-.fuss a:hover { color: var(--tusche); }
-.fuss .rechts a + a { margin-left: 20px; }
-@media (max-width: 900px) {
-  .fuss .links, .fuss .rechts { text-align: left; }
-  .fuss .rechts a { margin: 0 20px 0 0; }
-}
-
-/* ================================================= Leiste beim Scrollen = */
-.leiste {
-  position: fixed; inset: 0 0 auto; z-index: 40;
-  padding-block: 15px;
-  background: var(--feld); border-bottom: 1px solid var(--linie);
-  transform: translateY(-101%); transition: transform .3s ease;
-}
-.leiste[data-fest="ja"] { transform: none; }
-.leiste .gitter { align-items: baseline; }
-.leiste .gitter > *:nth-child(1) { grid-column: 1 / 4; }
-.leiste .gitter > *:nth-child(2) { grid-column: 4 / 7; }
-.leiste .gitter > *:nth-child(3) { grid-column: 7 / 10; }
-.leiste .gitter > *:nth-child(4) { grid-column: 10 / 13; text-align: right; }
-@media (max-width: 900px) {
-  .leiste .gitter { display: flex; justify-content: space-between; align-items: baseline; }
-  .leiste .gitter > *:nth-child(2), .leiste .gitter > *:nth-child(3) { display: none; }
-}
-
-/* =========================================================== Zeichnungen */
-.zeichnung { width: 100%; height: auto; display: block; color: var(--tusche); }
-.zeichnung .l, .zeichnung .l2, .zeichnung .fein,
-.zeichnung .schraffur, .zeichnung .heizstrich { vector-effect: non-scaling-stroke; }
-.zeichnung .l  { fill: none; stroke: currentColor; stroke-width: 1; }
-.zeichnung .l2 { fill: none; stroke: currentColor; stroke-width: 2; }
-.zeichnung .fl-feld { fill: var(--feld); }     /* muss nach .l stehen */
-.zeichnung .fein { fill: none; stroke: #9c9382; stroke-width: 1; }
-.zeichnung .schraffur { stroke: #bcae98; stroke-width: 1; }
-.zeichnung .heizstrich { stroke: #978d7a; stroke-width: 1; }
+/* ---------------------------------------------------------- Zeichnungen -- */
+.zeichnung { width: 100%; height: auto; }
+.zeichnung .l    { fill: none; stroke: var(--tinte); stroke-width: 1.1; vector-effect: non-scaling-stroke; }
+.zeichnung .l2   { fill: none; stroke: var(--tinte); stroke-width: 1.8; vector-effect: non-scaling-stroke; }
+.zeichnung .fein { fill: none; stroke: var(--grau);  stroke-width: 0.8; vector-effect: non-scaling-stroke; }
+.zeichnung .schraffur,
+.zeichnung .heizstrich { stroke: var(--linie); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.zeichnung .fl-feld { fill: var(--tafel-grund); }
 .zeichnung text {
-  font-family: var(--sans); font-weight: 500; fill: var(--grau); letter-spacing: .04em;
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  fill: var(--grau); letter-spacing: 0;
 }
-.zeichnung .mass { fill: var(--tusche); font-weight: 600; }
-.zeichnung--gross text { font-size: 15px; }
-.zeichnung--klein text { font-size: 13px; }
+.zeichnung .mass { fill: var(--tinte); }
 
-/* ====================================================== Rechtsseiten ==== */
-.rechtstext { padding-block: clamp(100px, 14vh, 170px) clamp(60px, 9vh, 110px); }
-.rechtstext h1 { font-size: clamp(28px, 3vw, 40px); margin-bottom: .6em; }
-.rechtstext h2 {
-  font-family: var(--sans); font-size: 12.5px; font-weight: 600;
-  letter-spacing: .12em; text-transform: uppercase; color: var(--grau);
-  margin: 2.2em 0 .5em;
+figcaption { margin-top: 10px; color: var(--grau); font-family: var(--mono); font-size: 11px; font-weight: 500; }
+
+/* ============================================================ Leistungen = */
+.leistungen { display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); column-gap: var(--spalt); }
+.liste { grid-column: 1 / 7; border-top: 1px solid var(--linie); }
+
+.posten {
+  width: 100%; display: grid; grid-template-columns: 34px 1fr; gap: var(--spalt);
+  align-items: start;
+  padding: clamp(16px, 2vw, 24px) 0;
+  border-bottom: 1px solid var(--linie);
+  background: none; border-left: 0; border-right: 0; border-top: 0;
+  font: inherit; color: inherit; text-align: left; cursor: pointer;
 }
-.rechtstext h3 { font-family: var(--sans); font-size: 15px; font-weight: 600; margin: 1.4em 0 .3em; }
-.rechtstext p, .rechtstext li { font-size: clamp(17px, 1.25vw, 19px); line-height: 1.5; color: var(--grau); }
-.rechtstext a { color: var(--tusche); }
-.rechtstext address { font-style: normal; color: var(--grau); line-height: 1.6; }
-.rechtstext ul { padding-left: 1.1em; }
-.rechtstext li { margin-bottom: .2em; }
-.luecke { background: rgba(81, 25, 114, .12); color: var(--tusche); padding: 1px 6px; font-size: .92em; }
+.posten-num { font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--grau); padding-top: 4px; }
+.posten b { display: block; font-weight: 400; font-size: clamp(18px, 1.7vw, 23px); letter-spacing: -0.042em; }
+.posten p { margin-top: 7px; color: var(--grau); max-width: 42ch; }
+.posten[aria-selected="true"] .posten-num { color: var(--tinte); }
 
-/* ============================================== Einblenden beim Scrollen = */
-.js-an .auf { opacity: 0; transform: translateY(10px); }
-.auf[data-da="ja"] {
+.schau {
+  grid-column: 8 / 13;
+  align-self: start;
+  position: sticky; top: calc(var(--kopfhoch) + var(--luft));
+  border: 1px solid var(--linie); border-radius: 10px;
+  padding: var(--pad);
+  background: var(--papier);
+}
+.schau-blatt[hidden] { display: none; }
+.schau-blatt { display: grid; gap: 12px; }
+
+/* ============================================================= Arbeiten == */
+.arbeit { position: relative; border-radius: 10px; overflow: hidden; background: var(--feld); }
+.arbeit img { width: 100%; height: 100%; object-fit: cover; }
+.arbeit-daten {
+  display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: var(--spalt);
+  margin-top: 12px;
+}
+.arbeit-daten div { display: grid; gap: 4px; }
+.arbeit-daten span { color: var(--grau); }
+
+.paarung { display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); column-gap: var(--spalt); row-gap: clamp(26px, 4vw, 48px); }
+
+/* =============================================================== Fragen == */
+.fragen { display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); column-gap: var(--spalt); row-gap: 0; }
+.frage {
+  grid-column: span 6;
+  display: grid; grid-template-columns: 34px 1fr; gap: var(--spalt);
+  padding: clamp(18px, 2.2vw, 26px) 0;
+  border-top: 1px solid var(--linie);
+}
+.frage h3 { font-size: clamp(16px, 1.4vw, 19px); font-weight: 400; letter-spacing: -0.035em; }
+.frage p { margin-top: 8px; color: var(--grau); max-width: 40ch; }
+.frage-num { font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--grau); padding-top: 3px; }
+
+/* ============================================================== Kontakt == */
+.bogen { display: grid; gap: 10px; margin-top: 22px; }
+.paar  { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.eingabe { display: grid; gap: 6px; }
+.eingabe > span { font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--grau); }
+.eingabe input, .eingabe textarea {
+  font: inherit; color: inherit;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--linie);
+  border-radius: 6px;
+  padding: 11px 12px;
+  width: 100%;
+}
+.eingabe textarea { min-height: 92px; resize: vertical; }
+.eingabe input::placeholder, .eingabe textarea::placeholder { color: var(--grau); opacity: 1; }
+.eingabe input:focus, .eingabe textarea:focus { outline: 2px solid currentColor; outline-offset: 1px; }
+
+.senden { justify-self: start; margin-top: 4px; }
+.bogen-fuss { margin-top: 2px; color: var(--grau); font-family: var(--mono); font-size: 11px; font-weight: 500; line-height: 1.5; }
+.bogen-fuss a { color: inherit; }
+
+.rueckmeldung { display: grid; gap: 10px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--linie); }
+.rueckmeldung textarea { font: inherit; min-height: 130px; background: rgba(255,255,255,0.06); color: inherit; border: 1px solid var(--linie); border-radius: 6px; padding: 11px 12px; }
+
+.kontaktwege { display: grid; gap: 1px; background: var(--linie); border-block: 1px solid var(--linie); }
+.kontaktwege li { background: var(--tafel-grund); padding: 13px 0; display: flex; justify-content: space-between; gap: var(--spalt); align-items: baseline; }
+.kontaktwege span { color: var(--grau); }
+.kontaktwege a { text-decoration: none; border-bottom: 1px solid transparent; }
+.kontaktwege a:hover { border-bottom-color: currentColor; }
+
+address { font-style: normal; }
+
+/* ================================================================ Fuß ==== */
+.fuss { padding: clamp(40px, 7vh, 80px) 0 10px; }
+.fuss-gross { font-size: clamp(24px, 3.4vw, 46px); font-weight: 400; line-height: 1; letter-spacing: -0.048em; }
+.fuss-zeile { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; margin-top: clamp(40px, 7vh, 80px); padding-top: 14px; border-top: 1px solid var(--linie); color: var(--grau); }
+.fuss-zeile a { text-decoration: none; border-bottom: 1px solid transparent; }
+.fuss-zeile a:hover { border-bottom-color: currentColor; color: var(--tinte); }
+.fuss-wege { display: flex; gap: 18px; flex-wrap: wrap; }
+
+/* ============================================================ Rechtstext = */
+.rechtstext { padding-block: clamp(30px, 6vh, 70px) clamp(50px, 10vh, 110px); }
+.rechtstext h1 { font-size: clamp(26px, 3vw, 40px); font-weight: 400; letter-spacing: -0.045em; line-height: 1.04; }
+.rechtstext h2 { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: 0;
+                 color: var(--grau); margin-top: 38px; margin-bottom: 8px; }
+.rechtstext p, .rechtstext address, .rechtstext li { max-width: 62ch; line-height: 1.5; }
+.rechtstext p + p { margin-top: 12px; }
+.rechtstext a { color: inherit; }
+.luecke {
+  background: var(--feld-2); border-bottom: 1px solid var(--grau);
+  padding: 1px 5px; border-radius: 3px;
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+}
+
+/* ============================================================ Einblenden = */
+.js-an .auf { opacity: 0; transform: translateY(14px); }
+.js-an .auf[data-da="ja"] {
   opacity: 1; transform: none;
-  transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.3,1);
+  transition: opacity 0.7s cubic-bezier(.22,.61,.36,1), transform 0.7s cubic-bezier(.22,.61,.36,1);
 }
-@media (prefers-reduced-motion: reduce) { .js-an .auf { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .js-an .auf { opacity: 1; transform: none; transition: none; }
+}
 
-/* Am Handy nur die Wortmarke, und die Nummer bricht nicht um */
-.nur-breit { display: inline; }
-@media (max-width: 900px) {
-  .nur-breit { display: none; }
-  .wege > *:last-child { white-space: nowrap; }
+/* ============================================================ Schmalere == */
+@media (max-width: 980px) {
+  :root { --r: 12px; }
+
+  .sp-links, .sp-rechts, .sp-halb, .sp-text, .sp-neben, .sp-voll { grid-column: 1 / 13; }
+  .gitter { row-gap: clamp(26px, 5vw, 44px); }
+
+  .leistungen { grid-template-columns: minmax(0, 1fr); row-gap: 26px; }
+  .liste, .schau { grid-column: auto; }
+  .schau { position: static; }
+
+  .paarung > * { grid-column: 1 / 13 !important; }
+  .frage { grid-column: 1 / 13; }
+
+  .titel { height: auto; min-height: calc(100svh - var(--kopfhoch) - var(--rand) - var(--luft)); }
 }
+
+@media (max-width: 640px) {
+  body { font-size: 15px; }
+  .spur { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .paar { grid-template-columns: minmax(0, 1fr); }
+  .arbeit-daten { grid-template-columns: repeat(2, minmax(0,1fr)); row-gap: 12px; }
+  .kopf-wege .weg { display: none; }
+  .titel h1 { font-size: clamp(30px, 8.6vw, 44px); }
+  .posten { grid-template-columns: 26px 1fr; }
+  .frage { grid-template-columns: 26px 1fr; }
+}
+
+@media print {
+  .kopf, .knoepfe, .bogen { display: none; }
+  .tafel { background: none; page-break-inside: avoid; }
+  .tafel::before, .tafel::after { display: none; }
+}
+
+/* ------------------------------------------------ Nachträge zum Aufbau -- */
+/* Haarlinie unter dem Kopf, sobald das Blatt darunter wegläuft. */
+.kopf[data-ab="ja"] .kopf-innen { box-shadow: inset 0 -1px var(--linie); }
+
+/* Bild neben einem Text, das auf dessen Höhe mitwächst. */
+.bildfeld { display: grid; }
+.randlos { border-radius: 10px; overflow: hidden; min-height: 300px; }
+.randlos img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Ausgeführte Arbeiten */
+.werk { display: grid; }
+.werk .arbeit picture { display: block; width: 100%; height: 100%; }
+.werk .arbeit img { width: 100%; height: 100%; object-fit: cover; }
+
+@media (max-width: 980px) {
+  .randlos { min-height: 0; aspect-ratio: 1400 / 732; }
+  .werk .arbeit { aspect-ratio: auto !important; }
+  .werk .arbeit picture, .werk .arbeit img { height: auto; }
+}
+
+/* Die große Schnittzeichnung läuft sonst über die ganze Blattbreite und
+   wird dabei luftig bis zur Leere. */
+.zeichnung--gross { max-width: min(100%, 1000px); }
+
+/* Das Zertifikat ist das einzige bunte Bild — hier wird es dem Rest
+   angeglichen, statt das Original zu verändern. */
+.urkunde { filter: grayscale(1) contrast(1.04); border-radius: 8px; }
+
+/* ------------------------------------------------- Zeichnungen am Handy -- */
+/* Die Schnitte werden mit dem Blatt kleiner; damit die Beschriftung lesbar
+   bleibt, wächst sie in Zeichnungseinheiten mit. Die Striche bleiben durch
+   non-scaling-stroke gleich dünn. */
+@media (max-width: 980px) {
+  .zeichnung text { font-size: 15px; }
+  .zeichnung--gross text { font-size: 24px; }
+  .randlos { aspect-ratio: 4 / 3; }
+}
+
+/* ------------------------------------------------------ Titel am Handy -- */
+/* Hochkant reicht der Platz nicht, um Schrift sicher auf das Bild zu legen:
+   Dann steht das Bild für sich und der Satz darunter. */
+@media (max-width: 700px) {
+  .titel { height: auto; min-height: 0; max-height: none; grid-template-rows: none; }
+  .titel .tafel-bild {
+    position: static; order: 2;
+    aspect-ratio: 5 / 4; border-radius: 10px; overflow: hidden;
+    margin-block: 16px 20px;
+  }
+  .titel .tafel-bild img { height: 100%; }
+  .titel > .zeile:first-of-type { order: 1; }
+  .titel-text { order: 3; padding-block: 0 26px; align-self: auto; }
+  .titel > .zeile:last-of-type { order: 4; }
+}
+
+/* Steht die Beschriftung am Handy größer, muss das weiße Feld darunter
+   mitwachsen — sonst läuft sie in die Schraffur. */
+@media (max-width: 980px) {
+  .zeichnung--gross .feld-lang { width: 330px; height: 34px; }
+}
+
+/* Steht in einer Eckzeile nur eine Angabe, gehört sie nach links. */
+.zeile > :only-child { text-align: left; }
+
+/* Die Rückmeldung steht erst da, wenn wirklich abgeschickt wurde —
+   display:grid schlägt sonst das hidden-Attribut. */
+.rueckmeldung[hidden] { display: none; }
