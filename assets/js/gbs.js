@@ -104,6 +104,39 @@
   mail.addEventListener("input", pruefen);
   pruefen();
 
+
+  /* Versand an kontakt.php – SideTwo-Kontaktformular-Standard (nie über die Mail-App) */
+  function stSenden(form, betreff, melden) {
+    var daten = new FormData(form);
+    if (betreff) daten.set("betreff", betreff);
+    var knopf = form.querySelector('[type="submit"]');
+    if (knopf) knopf.disabled = true;
+    if (!melden) {
+      var st = form.querySelector(".st-status");
+      if (!st) {
+        st = document.createElement("p");
+        st.className = "st-status";
+        st.setAttribute("role", "status");
+        st.setAttribute("aria-live", "polite");
+        st.style.marginTop = "12px";
+        st.style.fontWeight = "600";
+        form.appendChild(st);
+      }
+      melden = function (ok, text) { st.textContent = text; };
+    }
+    return fetch(form.getAttribute("action") || "kontakt.php", {
+      method: "POST", body: daten, headers: { "X-Requested-With": "fetch" }, credentials: "same-origin"
+    })
+      .then(function (r) { return r.json(); })
+      .catch(function () { return { ok: false, text: "Das Formular konnte gerade nicht gesendet werden. Bitte rufen Sie uns kurz an." }; })
+      .then(function (a) {
+        if (knopf) knopf.disabled = !!a.ok;
+        melden(!!a.ok, a.text);
+        if (a.ok) form.reset();
+        return a;
+      });
+  }
+
   formular.addEventListener("submit", function (e) {
     e.preventDefault();
     var d = new FormData(formular);
@@ -117,14 +150,18 @@
     var betreff = "Anfrage Spanndecke" + (d.get("raum") ? " — " + d.get("raum") : "");
 
     if (feld)  { feld.value = text; }
-    if (rueck) {
+    stSenden(formular, betreff, function (ok, antwort) {
+      if (!rueck) { return; }
+      var absatz = rueck.querySelector("p");
+      if (absatz) {
+        absatz.textContent = ok ? antwort
+          : antwort + " Sie können den Text auch kopieren und an christian-klein@gbs-handwerksservice.de schicken.";
+      }
+      if (feld) { feld.hidden = ok; }
+      if (kopieren) { kopieren.hidden = ok; }
       rueck.hidden = false;
       rueck.scrollIntoView({ block: "nearest", behavior: sparsam ? "auto" : "smooth" });
-    }
-
-    window.location.href = "mailto:christian-klein@gbs-handwerksservice.de" +
-      "?subject=" + encodeURIComponent(betreff) +
-      "&body="    + encodeURIComponent(text);
+    });
   });
 
   if (kopieren && feld) {

@@ -495,7 +495,8 @@
         Wir schauen ihn uns an, messen auf, und Sie bekommen einen festen Preis —
         ohne dass Sie sich zu etwas verpflichten.</p>
 
-      <form class="bogen" id="anfrage">
+      <form class="bogen" id="anfrage" action="kontakt.php" method="post">
+        <div class="st-falle" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"><label>Bitte leer lassen <input name="webseite" type="text" tabindex="-1" autocomplete="off"></label></div>
         <div class="paar">
           <label class="eingabe">
             <span>Name</span>
@@ -527,10 +528,7 @@
         </p>
 
         <div class="rueckmeldung" id="rueckmeldung" hidden>
-          <p><b>Fast geschafft.</b> Ihr E-Mail-Programm wurde mit der fertigen
-             Anfrage geöffnet — dort nur noch auf Senden drücken. Falls sich nichts
-             getan hat, kopieren Sie den Text und schicken ihn an
-             christian-klein@gbs-handwerksservice.de oder rufen Sie an.</p>
+          <p><b>Danke.</b> Ihre Anfrage ist eingegangen.</p>
           <textarea id="entwurf" readonly aria-label="Ihre Anfrage als Text"></textarea>
           <button class="knopf" type="button" id="kopieren">Text kopieren</button>
         </div>
